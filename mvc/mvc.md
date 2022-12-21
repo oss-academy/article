@@ -1,9 +1,8 @@
 # <p align="center">MVC</p>
 
-MVC is a software design pattern in order to apply in architecture level and frontend level. It is included three 
-component named, Model, View and Controller. So that, users can interact with the Controller and send data to Model 
-component with getting help from View, then View will get the updates from model directly. The MVC uses for Desktop and
-Web application.
+MVC is a software architectural pattern. It is included three component named, Model, View and Controller. So that, 
+users can interact with the Controller and send data to Model component with getting help from View, then View will get 
+the updates from model directly. The MVC uses for Desktop and Web application.
 
 ### Model
 It is a backend component included data, logic and rules for the data. Indeed, Model is a data model include some fields
@@ -19,6 +18,12 @@ receive data from View, then makes a command for Model and after updating data m
 present the data.
 
 
+## Advantage
+* Separation of concerns (SoC)
+* Decoupling
+* Testability
+* Reusability
+
 <p align="center">
 <img src="image/mvc.png" width="500" height="300" />
 </p>
@@ -27,6 +32,9 @@ present the data.
 
 ## Variation
 MVC has two variations named Model-View-Presenter (MVP) and Model-View-ViewModel (MVVM)
+
+
+
 
 
 **<p align="center"> [Top](#MVC) </p>**
