@@ -14,11 +14,11 @@ public final class Controller {
     }
 
     public void getAll(View<Model> view) {
-        view.update(DB.MODELS.values().toArray(new Model[0]));
+        view.update(DB.MODELS.get().values().toArray(new Model[0]));
     }
 
     public void getById(View<Model> view, Integer id) {
-        view.update(DB.MODELS.get(id));
+        view.update(DB.MODELS.get().get(id));
     }
 
     public void save(View<Model> view) {
@@ -26,7 +26,7 @@ public final class Controller {
 
         Model[] models = view.getModels();
         for (Model model : models) {
-            DB.MODELS.put(DB.MODEL_ID.incrementAndGet(), model);
+            DB.MODELS.get().put(DB.MODEL_ID.incrementAndGet(), model);
         }
 
     }

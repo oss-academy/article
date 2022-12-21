@@ -21,14 +21,14 @@ public class ControllerTest {
 
         @Before
         public void setUp() {
-            DB.MODELS.put(1, new Model(1, "get-all-fake-1"));
-            DB.MODELS.put(2, new Model(2, "get-all-fake-2"));
-            DB.MODELS.put(3, new Model(3, "get-all-fake-3"));
+            DB.MODELS.get().put(1, new Model(1, "get-all-fake-1"));
+            DB.MODELS.get().put(2, new Model(2, "get-all-fake-2"));
+            DB.MODELS.get().put(3, new Model(3, "get-all-fake-3"));
         }
 
         @After
         public void tearDown() {
-            DB.MODELS.clear();
+            DB.MODELS.get().clear();
         }
 
         @Test
@@ -47,12 +47,12 @@ public class ControllerTest {
 
         @Before
         public void setUp() {
-            DB.MODELS.put(1, new Model(1, "get-id-fake-1"));
+            DB.MODELS.get().put(1, new Model(1, "get-id-fake-1"));
         }
 
         @After
         public void tearDown() {
-            DB.MODELS.clear();
+            DB.MODELS.get().clear();
         }
 
         @Test
@@ -71,12 +71,12 @@ public class ControllerTest {
 
         @Before
         public void setUp() {
-            DB.MODELS.clear();
+            DB.MODELS.get().clear();
         }
 
         @After
         public void tearDown() {
-            DB.MODELS.clear();
+            DB.MODELS.get().clear();
         }
 
         @Test
@@ -86,7 +86,7 @@ public class ControllerTest {
 
             underTest.save(givenView);
 
-            assertEquals(1, DB.MODELS.size());
+            assertEquals(1, DB.MODELS.get().size());
             givenView.view();
         }
     }
