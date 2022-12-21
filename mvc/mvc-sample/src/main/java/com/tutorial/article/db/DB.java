@@ -11,6 +11,7 @@ import java.util.concurrent.atomic.AtomicReference;
 public final class DB {
 
     public static final AtomicInteger MODEL_ID = new AtomicInteger(0);
+
     public static final AtomicReference<Map<Integer, Model>> MODELS = new AtomicReference<>(Collections.synchronizedMap(new HashMap<>()));
 
     private DB() {
