@@ -10,13 +10,13 @@ import static java.lang.String.format;
 import static java.util.logging.Logger.getLogger;
 import static java.util.stream.Collectors.joining;
 
-public final class ConsoleView implements View<Model> {
+public final class PassiveConsoleView implements View<Model> {
 
-    private final Logger logger = getLogger(ConsoleView.class.getSimpleName());
+    private final Logger logger = getLogger(PassiveConsoleView.class.getSimpleName());
 
     private Model[] models = new Model[0];
 
-    public ConsoleView() {
+    public PassiveConsoleView() {
         logger.setLevel(Level.ALL);
     }
 
@@ -25,9 +25,17 @@ public final class ConsoleView implements View<Model> {
         return models;
     }
 
+
     @Override
-    public void update(Model... models) {
+    public void setModel(Model... models) {
         this.models = models;
+    }
+
+    @Override
+    public void addModel(Model... models) {
+        this.models = Stream.concat(Stream.of(this.models), Stream.of(models))
+                .toList()
+                .toArray(new Model[0]);
     }
 
     @Override

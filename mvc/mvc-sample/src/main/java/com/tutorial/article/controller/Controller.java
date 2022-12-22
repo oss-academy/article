@@ -14,11 +14,11 @@ public final class Controller {
     }
 
     public void getAll(View<Model> view) {
-        view.update(DB.MODELS.get().values().toArray(new Model[0]));
+        view.setModel(DB.MODELS.get().values().toArray(new Model[0]));
     }
 
     public void getById(View<Model> view, Integer id) {
-        view.update(DB.MODELS.get().get(id));
+        view.setModel(DB.MODELS.get().get(id));
     }
 
     public void save(View<Model> view) {
@@ -28,6 +28,6 @@ public final class Controller {
         for (Model model : models) {
             DB.MODELS.get().put(DB.MODEL_ID.incrementAndGet(), model);
         }
-
+        view.setModel(new Model[0]);
     }
 }
