@@ -14,20 +14,36 @@ public final class Controller {
     }
 
     public void getAll(View<Model> view) {
-        view.setModel(DB.MODELS.get().values().toArray(new Model[0]));
+        requireNonNull(view);
+
+        view.models(DB.MODELS.get().values().toArray(new Model[0]));
     }
 
     public void getById(View<Model> view, Integer id) {
-        view.setModel(DB.MODELS.get().get(id));
+        requireNonNull(view);
+        requireNonNull(id);
+
+        if (DB.MODELS.get().containsKey(id)) {
+            view.models(DB.MODELS.get().get(id));
+        } else {
+            view.models(new Model[0]);
+        }
     }
 
     public void save(View<Model> view) {
-        requireNonNull(view.getModels());
+        requireNonNull(view);
+        requireNonNull(view.models());
 
-        Model[] models = view.getModels();
+        Model[] models = view.models();
         for (Model model : models) {
             DB.MODELS.get().put(DB.MODEL_ID.incrementAndGet(), model);
         }
-        view.setModel(new Model[0]);
+    }
+
+    public void deleteById(View<Model> view, Integer id) {
+        requireNonNull(view);
+        requireNonNull(id);
+
+        DB.MODELS.get().remove(id);
     }
 }

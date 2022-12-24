@@ -1,11 +1,9 @@
 package com.tutorial.article.view;
 
-public interface View<T> {
-    T[] getModels();
+public sealed interface View<T> permits ConsoleView {
+    T[] models();
 
-    void setModel(T... models);
+    void models(T... models);
 
-    void addModel(T... models);
-
-    void view();
+    void viewModels();
 }
