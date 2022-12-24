@@ -85,10 +85,10 @@ public class Console implements Runnable, Cacheable {
 
     private void initCommands() {
         map.put(Command.NEW, (view, args) -> {
-            System.out.print("number:");
+            System.out.print("set number =");
             var number = scanner.nextLine();
 
-            System.out.print("text:");
+            System.out.print("set text =");
             var text = scanner.nextLine();
 
             cache(new Model(Integer.parseInt(number), text));
