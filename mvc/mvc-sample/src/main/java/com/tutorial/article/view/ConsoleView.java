@@ -19,7 +19,7 @@ public final class ConsoleView implements View<Model> {
     }
 
     @Override
-    public void viewModels() {
+    public void view() {
         System.out.print(convertToString(models, "persisted models"));
     }
 

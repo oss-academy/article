@@ -13,6 +13,16 @@ public final class Controller {
     private Controller() {
     }
 
+    public void save(View<Model> view) {
+        requireNonNull(view);
+        requireNonNull(view.models());
+
+        Model[] models = view.models();
+        for (Model model : models) {
+            DB.MODELS.get().put(DB.MODEL_ID.incrementAndGet(), model);
+        }
+    }
+
     public void getAll(View<Model> view) {
         requireNonNull(view);
 
@@ -27,16 +37,6 @@ public final class Controller {
             view.models(DB.MODELS.get().get(id));
         } else {
             view.models(new Model[0]);
-        }
-    }
-
-    public void save(View<Model> view) {
-        requireNonNull(view);
-        requireNonNull(view.models());
-
-        Model[] models = view.models();
-        for (Model model : models) {
-            DB.MODELS.get().put(DB.MODEL_ID.incrementAndGet(), model);
         }
     }
 

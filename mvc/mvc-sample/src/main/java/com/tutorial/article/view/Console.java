@@ -114,7 +114,7 @@ public class Console implements Runnable, Cacheable {
             } else {
                 controller.getAll(view);
             }
-            view.viewModels();
+            view.view();
             return ok();
         });
 
