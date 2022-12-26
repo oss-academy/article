@@ -3,11 +3,13 @@ package com.tutorial.article.view;
 import com.tutorial.article.controller.Controller;
 import com.tutorial.article.model.Model;
 
+import javax.swing.*;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.function.BiFunction;
 
 import static com.tutorial.article.util.ArrayUtils.convertToString;
+import static com.tutorial.article.util.StringUtils.isEmpty;
 import static com.tutorial.article.view.Command.*;
 import static com.tutorial.article.view.Response.*;
 import static java.util.Collections.synchronizedMap;
@@ -88,9 +90,15 @@ public class Console implements Runnable, Cacheable {
         map.put(NEW, (view, args) -> {
             System.out.print("set number =");
             var number = scanner.nextLine();
+            if (isEmpty(number)) {
+                return error("number must be integer");
+            }
 
             System.out.print("set text =");
             var text = scanner.nextLine();
+            if (isEmpty(text)) {
+                return error("text must be not empty");
+            }
 
             cache(new Model(Integer.parseInt(number), text));
             return ok();

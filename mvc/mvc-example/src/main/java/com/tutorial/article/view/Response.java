@@ -8,6 +8,10 @@ public record Response(String text) {
         return Optional.of(new Response("ok"));
     }
 
+    public static Optional<Response> error(String mes) {
+        return Optional.of(new Response(mes));
+    }
+
     public static Optional<Response> bye() {
         return Optional.of(new Response("bye"));
     }

@@ -9,6 +9,9 @@ import java.awt.*;
 import java.awt.event.ActionListener;
 import java.util.stream.IntStream;
 
+import static com.tutorial.article.util.StringUtils.isEmpty;
+import static java.util.Objects.isNull;
+
 public final class DesktopView extends JPanel implements View<Model> {
 
     public static final Object[] TABLE_HEADER = {"Text", "Number"};
@@ -41,11 +44,9 @@ public final class DesktopView extends JPanel implements View<Model> {
 
     private void init() {
         text = new JTextField(20);
-        text.setText("test");
         textLabel = new JLabel("Text");
 
         number = new JTextField(20);
-        number.setText("1");
         numberLabel = new JLabel("Number");
 
         saveButton = new JButton("Save");
@@ -122,8 +123,26 @@ public final class DesktopView extends JPanel implements View<Model> {
                 });
     }
 
-    public Model readForm() {
-        return new Model(Integer.parseInt(number.getText().trim()), text.getText().trim());
+    public Model[] readForm() {
+        var valid = true;
+
+        var number = this.number.getText().trim();
+        if (isEmpty(number)) {
+            valid = false;
+            JOptionPane.showMessageDialog(this, "number must be integer");
+        }
+
+        var text = this.text.getText().trim();
+        if (isEmpty(text)) {
+            valid = false;
+            JOptionPane.showMessageDialog(this, "text must be not empty");
+        }
+
+        if (!valid) {
+            return new Model[0];
+        }
+
+        return new Model[]{new Model(Integer.parseInt(number), text)};
     }
 
     public void setSaveAction(ActionListener listener) {
