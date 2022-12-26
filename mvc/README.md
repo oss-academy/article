@@ -46,7 +46,7 @@ the Model to make a command for View to show the model.
 
 
 ## Example
-[mvc](./mvc-example)
+[mvc example](./mvc-example)
 
 
 ## References
