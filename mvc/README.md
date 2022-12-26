@@ -17,7 +17,7 @@ It is a component to make a relation between Model and View so that it is named 
 receive data and command from user with getting help from View, then makes a command for Model.
 
 
-## Advantage
+### Advantage
 * Separation of concerns (SoC)
 * Decoupling
 * Testability
@@ -32,17 +32,21 @@ receive data and command from user with getting help from View, then makes a com
 ## Variation
 MVC has two variations named Model-View-Presenter (MVP) and Model-View-ViewModel (MVVM)
 
-### MVP
+## MVP
 MVP has three components, Model, View and Presentation. Indeed, Model and View are the same as Model and View in MVC and 
-Presentation is  a component responsible to get input from View and make a command for Model, also getting model from 
+Presentation is different component.
+
+### Presentation
+It is a component responsible to get input from View and make a command for Model, also getting model from 
 the Model to make a command for View to show the model.
 
 <p align="center">
 <img src="image/mvp.png" width="500" height="300" />
 </p>
 
-### MVVM
+## MVVM
 
+### View Model
 
 
 ## Example
