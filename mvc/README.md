@@ -27,8 +27,6 @@ receive data and command from user with getting help from View, then makes a com
 <img src="image/mvc.png" width="500" height="300" />
 </p>
 
-<hr/>
-
 ## Variation
 MVC has two variations named Model-View-Presenter (MVP) and Model-View-ViewModel (MVVM)
 
