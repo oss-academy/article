@@ -10,7 +10,7 @@ knowledge.
 
 ### View
 This part is a frontend component and, it is responsible to present the data and get input data from end user. Sometimes
-View is named as a UI component.
+View is named as a UI component. The View has no knowledge about the Controller.
 
 ### Controller
 It is a component to make a relation between Model and View so that it is named the brain of application. The Controller
@@ -32,12 +32,22 @@ receive data and command from user with getting help from View, then makes a com
 ## Variation
 MVC has two variations named Model-View-Presenter (MVP) and Model-View-ViewModel (MVVM)
 
-http://www.wildcrest.com/Potel/Portfolio/mvp.pdf
+### MVP
+MVP has three components, Model, View and Presentation. Indeed, Model and View are the same as Model and View in MVC and 
+Presentation is  a component responsible to get input from View and make a command for Model, also getting model from 
+the Model to make a command for View to show the model.
+
+<p align="center">
+<img src="image/mvp.png" width="500" height="300" />
+</p>
+
+### MVVM
 
 ## References
 * [PARC](http://wayback.archive-it.org/10370/20180425071111/http://folk.uio.no/trygver/themes/mvc/mvc-index.html)
 * [Trygve M. H. Reenskaug](https://folk.universitetetioslo.no/trygver)
 * [Martin Fowler](https://martinfowler.com/eaaDev/uiArchs.html)
+* [Wild Crest](http://www.wildcrest.com/Potel/Portfolio/mvp.pdf)
 
 **<p align="center"> [Top](#MVC) </p>**
 

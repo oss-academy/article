@@ -8,6 +8,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.function.BiFunction;
 
 import static com.tutorial.article.util.ArrayUtils.convertToString;
+import static com.tutorial.article.view.Command.*;
 import static com.tutorial.article.view.Response.*;
 import static java.util.Collections.synchronizedMap;
 import static java.util.Objects.requireNonNull;
@@ -84,7 +85,7 @@ public class Console implements Runnable, Cacheable {
     }
 
     private void initCommands() {
-        map.put(Command.NEW, (view, args) -> {
+        map.put(NEW, (view, args) -> {
             System.out.print("set number =");
             var number = scanner.nextLine();
 
@@ -95,19 +96,19 @@ public class Console implements Runnable, Cacheable {
             return ok();
         });
 
-        map.put(Command.SAVE, (view, args) -> {
+        map.put(SAVE, (view, args) -> {
             view.models(cache().toArray(new Model[0]));
             controller.save(view);
             clear();
             return ok();
         });
 
-        map.put(Command.CLEAR, (view, args) -> {
+        map.put(CLEAR, (view, args) -> {
             clear();
             return ok();
         });
 
-        map.put(Command.SHOW, (view, args) -> {
+        map.put(SHOW, (view, args) -> {
             if (args.length > 0) {
                 controller.getById(view, Integer.parseInt(args[0]));
             } else {
@@ -117,12 +118,12 @@ public class Console implements Runnable, Cacheable {
             return ok();
         });
 
-        map.put(Command.CACHE, (view, args) -> {
+        map.put(CACHE, (view, args) -> {
             viewCache();
             return ok();
         });
 
-        map.put(Command.DELETE, (view, args) -> {
+        map.put(DELETE, (view, args) -> {
             if (args.length > 0) {
                 controller.deleteById(view, Integer.parseInt(args[0]));
             } else {
@@ -132,20 +133,22 @@ public class Console implements Runnable, Cacheable {
             return ok();
         });
 
-        map.put(Command.HELP, (view, args) -> {
-            var str = Command.HELP.name().toLowerCase() + ": show help\n" +
-                    Command.CACHE.name().toLowerCase() + ": show cached models\n" +
-                    Command.SHOW.name().toLowerCase() + ": show persisted models\n" +
-                    Command.NEW.name().toLowerCase() + ": save new model to cache\n" +
-                    Command.SAVE.name().toLowerCase() + ": save cached models to storage\n" +
-                    Command.CLEAR.name().toLowerCase() + ": clear cache\n" +
-                    Command.EXIT.name().toLowerCase() + ": exit";
+        map.put(HELP, (view, args) -> {
+            var str = "\n" +
+                    HELP.name().toLowerCase() + ": show help\n" +
+                    CACHE.name().toLowerCase() + ": show cached models\n" +
+                    SHOW.name().toLowerCase() + ": show persisted models\n" +
+                    NEW.name().toLowerCase() + ": save new model to cache\n" +
+                    SAVE.name().toLowerCase() + ": save cached models to storage\n" +
+                    DELETE.name().toLowerCase() + ": delete persisted models from storage\n" +
+                    CLEAR.name().toLowerCase() + ": clear cache\n" +
+                    EXIT.name().toLowerCase() + ": exit\n";
 
             System.out.println(str);
             return empty();
         });
 
-        map.put(Command.EXIT, (view, args) -> {
+        map.put(EXIT, (view, args) -> {
             isAlive.set(false);
             return bye();
         });
