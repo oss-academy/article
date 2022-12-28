@@ -35,8 +35,8 @@ will move on to their counterparts in the component world, and then to the princ
 
 </p>
 
-* [Single Responsibility Principle (SRP)](#single-responsibility-principle-(SRP))
-* [Open Close Principle (OCP)](#open-closed-principle-(OCP))
+* [Single Responsibility Principle (SRP)](#single-responsibility-principle--(SRP-))
+* [Open Close Principle (OCP)](#open-closed-principle--(OCP-))
 
 ## Single Responsibility Principle (SRP)
 
