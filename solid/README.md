@@ -35,10 +35,10 @@ will move on to their counterparts in the component world, and then to the princ
 
 </p>
 
-* [Single Responsibility Principle (SRP)](#single-responsibility-principle)
-* [Open Close Principle (OCP)](#open-closed-principle)
+* [Single Responsibility Principle (SRP)](#single-responsibility-principle-(SRP))
+* [Open Close Principle (OCP)](#open-closed-principle-(OCP))
 
-## Single Responsibility Principle
+## Single Responsibility Principle (SRP)
 
 <p align="justify">
 
@@ -74,7 +74,7 @@ design should be refactored using the FACADE, DAO, or PROXY patterns to separate
 
 </p>
 
-## Open-Closed Principle
+## Open-Closed Principle (OCP)
 
 <p align="justify">
 the behavior of a software artifact ought to be extendible, without having to modify that artifact.
