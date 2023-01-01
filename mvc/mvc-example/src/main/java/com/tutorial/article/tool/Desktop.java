@@ -7,26 +7,17 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 
-public class Form extends JFrame {
+public class Desktop extends JFrame {
 
     private final Controller controller;
 
     private final FormView view;
 
-    public Form(Controller controller, FormView view) throws HeadlessException {
+    public Desktop(Controller controller, FormView view) throws HeadlessException {
         this.controller = controller;
         this.view = view;
         bindAction();
-        init();
-    }
-
-    private void init() {
-        JFrame frame = new JFrame("MVC Desktop");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.add(view);
-        frame.pack();
-        frame.setLocationRelativeTo(null);
-        frame.setVisible(true);
+        initFrame();
     }
 
     private void bindAction() {
@@ -46,5 +37,14 @@ public class Form extends JFrame {
                         view.represent();
                     }
                 });
+    }
+
+    private void initFrame() {
+        JFrame frame = new JFrame("MVC Desktop");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.add(view);
+        frame.pack();
+        frame.setLocationRelativeTo(null);
+        frame.setVisible(true);
     }
 }

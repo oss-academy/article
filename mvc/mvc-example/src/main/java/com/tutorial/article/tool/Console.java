@@ -34,8 +34,8 @@ public class Console implements Runnable {
     public Console(Controller controller, ConsoleView view) {
         this.controller = controller;
         this.view = view;
+        this.commandGroup = view.getCommandGroup();
         bindAction();
-        commandGroup = view.getCommandGroup();
     }
 
     public void run() {

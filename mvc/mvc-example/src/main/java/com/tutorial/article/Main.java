@@ -2,7 +2,7 @@ package com.tutorial.article;
 
 import com.tutorial.article.controller.Controller;
 import com.tutorial.article.tool.Console;
-import com.tutorial.article.tool.Form;
+import com.tutorial.article.tool.Desktop;
 import com.tutorial.article.view.console.ConsoleView;
 import com.tutorial.article.view.form.FormView;
 
@@ -18,7 +18,7 @@ public class Main {
     private static void runDesktopView() {
         SwingUtilities.invokeLater(() -> {
             try {
-                new Form(Controller.INSTANCE, new FormView());
+                new Desktop(Controller.INSTANCE, new FormView());
             } catch (Exception e) {
                 System.out.println(e.getMessage());
             }
