@@ -1,9 +1,14 @@
 package com.tutorial.article.view;
 
-public sealed interface View<T> permits ConsoleView, DesktopView {
-    T[] models();
+public interface View<T, E> {
+    T[] getModel();
 
-    void models(T... models);
+    void setModel(T... models);
 
-    void view();
+    E getInput();
+
+    void setInput();
+
+    void represent();
+
 }

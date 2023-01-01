@@ -22,7 +22,7 @@ mvn  test
 In order to run desktop version
 
 ```bash
-java -cp ./target/mvc-example.jar com.tutorial.article.Main "desktop"
+java -cp ./target/mvc-example.jar com.tutorial.article.Main "form"
 ```
 
 In order to run console version

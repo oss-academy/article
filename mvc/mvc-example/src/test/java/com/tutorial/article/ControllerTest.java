@@ -3,7 +3,6 @@ package com.tutorial.article;
 import com.tutorial.article.controller.Controller;
 import com.tutorial.article.db.DB;
 import com.tutorial.article.model.Model;
-import com.tutorial.article.view.ConsoleView;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -22,9 +21,12 @@ public class ControllerTest {
 
         @Before
         public void setUp() {
-            DB.MODELS.get().put(DB.MODEL_ID.incrementAndGet(), new Model(1, "get-all-fake-1"));
-            DB.MODELS.get().put(DB.MODEL_ID.incrementAndGet(), new Model(2, "get-all-fake-2"));
-            DB.MODELS.get().put(DB.MODEL_ID.incrementAndGet(), new Model(3, "get-all-fake-3"));
+            int id1 = DB.MODEL_ID.incrementAndGet();
+            DB.MODELS.get().put(id1, new Model(id1,"get-all-fake-1", 1));
+            int id2 = DB.MODEL_ID.incrementAndGet();
+            DB.MODELS.get().put(id2, new Model(id2,"get-all-fake-2", 2));
+            int id3 = DB.MODEL_ID.incrementAndGet();
+            DB.MODELS.get().put(id3, new Model(id3,"get-all-fake-3", 3));
         }
 
         @After
@@ -35,11 +37,11 @@ public class ControllerTest {
 
         @Test
         public void givenEmptyView_whenCommandGetAll_ThenViewWillBeUpdatedWithAllModel() {
-            var givenView = new ConsoleView();
+            var givenView = new TestConsoleView();
 
             underTest.getAll(givenView);
 
-            assertEquals(3, givenView.models().length);
+            assertEquals(3, givenView.getModel().length);
         }
 
     }
@@ -48,7 +50,8 @@ public class ControllerTest {
 
         @Before
         public void setUp() {
-            DB.MODELS.get().put(DB.MODEL_ID.incrementAndGet(), new Model(1, "get-id-fake-1"));
+            int id = DB.MODEL_ID.incrementAndGet();
+            DB.MODELS.get().put(id, new Model(id,"get-id-fake-1", 1));
         }
 
         @After
@@ -59,12 +62,12 @@ public class ControllerTest {
 
         @Test
         public void givenEmptyViewAndId_whenCommandGetById_ThenViewWillBeUpdatedWithOneModel() {
-            var givenView = new ConsoleView();
+            var givenView = new TestConsoleView();
             var givenId = 1;
 
             underTest.getById(givenView, givenId);
 
-            assertEquals(1, givenView.models().length);
+            assertEquals(1, givenView.getModel().length);
         }
     }
 
@@ -84,8 +87,8 @@ public class ControllerTest {
 
         @Test
         public void givenModel_whenCommandSave_ThenDatabaseWillBeUpdatedWithNewModel() {
-            var givenView = new ConsoleView();
-            givenView.models(new Model(1, "save-fake-1"));
+            var givenView = new TestConsoleView();
+            givenView.setInput();
 
             underTest.save(givenView);
 
@@ -97,8 +100,10 @@ public class ControllerTest {
 
         @Before
         public void setUp() {
-            DB.MODELS.get().put(DB.MODEL_ID.incrementAndGet(), new Model(1, "delete-fake-1"));
-            DB.MODELS.get().put(DB.MODEL_ID.incrementAndGet(), new Model(2, "delete-fake-2"));
+            int id1 = DB.MODEL_ID.incrementAndGet();
+            DB.MODELS.get().put(id1, new Model(id1,"delete-fake-1", 1));
+            int id2 = DB.MODEL_ID.incrementAndGet();
+            DB.MODELS.get().put(id2, new Model(id2,"delete-fake-2", 2));
         }
 
         @After
@@ -108,7 +113,7 @@ public class ControllerTest {
 
         @Test
         public void givenEmptyView_whenCommandGetAll_ThenViewWillBeUpdatedWithAllModel() {
-            var givenView = new ConsoleView();
+            var givenView = new TestConsoleView();
             var givenId = 1;
             var givenCurrentSize = 2;
 

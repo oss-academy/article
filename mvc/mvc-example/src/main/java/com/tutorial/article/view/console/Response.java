@@ -1,4 +1,4 @@
-package com.tutorial.article.view;
+package com.tutorial.article.view.console;
 
 import java.util.Optional;
 

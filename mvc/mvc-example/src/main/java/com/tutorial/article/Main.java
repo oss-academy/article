@@ -1,10 +1,10 @@
 package com.tutorial.article;
 
 import com.tutorial.article.controller.Controller;
-import com.tutorial.article.view.Console;
-import com.tutorial.article.view.ConsoleView;
-import com.tutorial.article.view.Desktop;
-import com.tutorial.article.view.DesktopView;
+import com.tutorial.article.tool.Console;
+import com.tutorial.article.tool.Form;
+import com.tutorial.article.view.console.ConsoleView;
+import com.tutorial.article.view.form.FormView;
 
 import javax.swing.*;
 
@@ -16,13 +16,11 @@ public class Main {
     }
 
     private static void runDesktopView() {
-        SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
-                try {
-                    new Desktop(Controller.INSTANCE, new DesktopView());
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+        SwingUtilities.invokeLater(() -> {
+            try {
+                new Form(Controller.INSTANCE, new FormView());
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
             }
         });
     }
@@ -36,8 +34,10 @@ public class Main {
 
         switch (args[0]) {
             case "console" -> runConsoleView();
-            case "desktop" -> runDesktopView();
-            default -> System.out.println("the view is not valid");
+            case "form" -> runDesktopView();
+            default -> System.out.println(
+                    "the view is not valid\nconsole and form are the supported view"
+            );
         }
 
 

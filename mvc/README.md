@@ -9,18 +9,28 @@ Model-View-Presenter (MVP) and Model-View-ViewModel (MVVM)
 
 ### Model
 
-It is a backend component included data, logic and rules of the data. Indeed, Model is a data model to represent the
-knowledge.
+It is a component included data, logic and rules of the data. Indeed, Model is a data model to represent the
+knowledge of domain..
 
 ### View
 
-This part is a frontend component and, it is responsible to present the data and get input data from end user. Sometimes
-View is named as a UI component. The View has no knowledge about the Controller.
+This component is responsible to present the data and get input data from user. Sometimes View is named as a UI
+component. The View has no knowledge about the Controller. View should receive the updated model from Model directly
+and, it is included the same model, composite of models or a simpler version of a model. To get updated models there are
+two solutions as follows.
+
+* Pass the view and action to Controller and, update the view inside the Controller after performing the action
+* Use Observation pattern to get notification from Model directly
 
 ### Controller
 
-It is a component to make a relation between Model and View so that it is named the brain of application. The Controller
-receive data and command from user with getting help from View, then makes a command for Model.
+It is a component to apply user request on Model so that it receive data and action from user with getting help from
+View, then perform the action on Model. Controller is included two types of action as follows.
+
+* Selection
+* Command
+
+The Controller can be included View.
 
 ### Advantage
 
@@ -42,15 +52,8 @@ Presentation is different component.
 
 ### Presentation
 
-It is a component responsible to get input from View and make a command for Model, also getting model from
-the Model to make a command for View to show the model.
-
-### Advantage
-
-* Separation of concerns (SoC)
-* Decoupling
-* Testability
-* Reusability
+It is a component responsible to get input and action from View and, perform the action on Model, also getting models 
+from the Model to provide it for View.
 
 <p align="center">
 <img src="image/mvp.png" width="500" height="300" />
@@ -69,7 +72,7 @@ the Model to make a command for View to show the model.
 * [PARC](http://wayback.archive-it.org/10370/20180425071111/http://folk.uio.no/trygver/themes/mvc/mvc-index.html)
 * [Trygve M. H. Reenskaug](https://folk.universitetetioslo.no/trygver)
 * [Martin Fowler](https://martinfowler.com/eaaDev/uiArchs.html)
-* [Wild Crest](http://www.wildcrest.com/Potel/Portfolio/mvp.pdf)
+* [Potel](http://www.wildcrest.com/Potel/Portfolio/mvp.pdf)
 
 **<p align="center"> [Top](#MVC-Pattern) </p>**
 

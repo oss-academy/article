@@ -1,8 +1,8 @@
 package com.tutorial.article;
 
 import com.tutorial.article.controller.Controller;
-import com.tutorial.article.view.Console;
-import com.tutorial.article.view.ConsoleView;
+import com.tutorial.article.tool.Console;
+import com.tutorial.article.view.console.ConsoleView;
 
 public class RunConsole {
 
