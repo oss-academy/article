@@ -2,10 +2,10 @@
 
 ## MVC
 
-MVC is a software architectural pattern. It is included three component named, Model, View and Controller. So that,
-users can interact with the Controller and send data to Model component with getting help from View, then View will get
-the updates from model directly. The MVC uses for Desktop and Web application. Also, It has two variations named
-Model-View-Presenter (MVP) and Model-View-ViewModel (MVVM)
+MVC is a software architectural pattern. It is included three components named, Model, View and Controller. So that,
+users can interact with the Controller and send input to Controller component with getting help from View. Then View 
+will get the updates from model directly. The MVC generally uses for Desktop and Web application. Also, It has two 
+variations named Model-View-Presenter (MVP) and Model-View-ViewModel (MVVM)
 
 ### Model
 
@@ -19,7 +19,7 @@ component. The View has no knowledge about the Controller. View should receive t
 and, it is included the same model, composite of models or a simpler version of a model. To get updated models there are
 two solutions as follows.
 
-* Pass the view and action to Controller and, update the view inside the Controller after performing the action
+* Use a reference of View in the Controller
 * Use Observation pattern to get notification from Model directly
 
 ### Controller
@@ -65,7 +65,8 @@ from the Model to provide it for View.
 
 ## Example
 
-[mvc example](./mvc-example)
+[MVC example](./mvc-example)
+[MVP example](./mvp-example)
 
 ## References
 
