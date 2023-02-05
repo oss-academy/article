@@ -67,7 +67,7 @@ from the Model to provide it for View.
 
 Model-View-ViewModel (MVVM) is a software architectural pattern used in development of modern user interfaces. It's a
 variation of the Model-View-Controller (MVC) pattern and is widely used in developing applications with a graphical user
-interface (GUI).
+interface (GUI). MVVM is also referred to as Model=View-Binder.
 
 MVVM has three components, Model, View and ViewModel. Indeed, Model and View are the same as Model and View in MVC and
 ViewModel is different component. Also, the View communicates with the ViewModel through data binding, but has no direct
@@ -97,6 +97,9 @@ Model accordingly.
 * [Trygve M. H. Reenskaug](https://folk.universitetetioslo.no/trygver)
 * [Martin Fowler](https://martinfowler.com/eaaDev/uiArchs.html)
 * [Potel](http://www.wildcrest.com/Potel/Portfolio/mvp.pdf)
+* [Microsoft](https://learn.microsoft.com/en-us/xamarin/xamarin-forms/enterprise-application-patterns/mvvm)
+* [Microsoft](https://learn.microsoft.com/en-us/dotnet/architecture/maui/mvvm)
+* [ChatGPT](https://chat.openai.com/chat)
 
 **<p align="center"> [Top](#MVC-Pattern) </p>**
 
