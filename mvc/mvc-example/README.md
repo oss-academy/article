@@ -22,13 +22,13 @@ mvn  test
 In order to run desktop version
 
 ```bash
-java -cp ./target/mvc-example.jar com.tutorial.article.Main "form"
+java -cp ./target/mvc-example.jar com.tutorial.mvc.Main "form"
 ```
 
 In order to run console version
 
 ```bash
-java -cp ./target/mvc-example.jar com.tutorial.article.Main "console"
+java -cp ./target/mvc-example.jar com.tutorial.mvc.Main "console"
 ```
 
 **<p align="center">[Top](#MVC-Example)</p>**

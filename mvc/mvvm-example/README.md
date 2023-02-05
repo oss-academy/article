@@ -1,4 +1,4 @@
-# <p align="center">MVP Example</p>
+# <p align="center">MVVM Example</p>
 
 ## Prerequisites
 
@@ -22,13 +22,13 @@ mvn  test
 In order to run desktop version
 
 ```bash
-java -cp ./target/mvp-example.jar com.tutorial.mvp.Main "form"
+java -cp ./target/mvvm-example.jar com.tutorial.mvvm.Main "form"
 ```
 
 In order to run console version
 
 ```bash
-java -cp ./target/mvp-example.jar com.tutorial.mvp.Main "console"
+java -cp ./target/mvvm-example.jar com.tutorial.mvvm.Main "console"
 ```
 
-**<p align="center">[Top](#MVP-Example)</p>**
+**<p align="center">[Top](#MVVM-Example)</p>**

@@ -1,3 +1,3 @@
-module mvp.example {
+module mvvm.example {
     requires java.desktop;
 }
