@@ -1,8 +1,8 @@
-package com.tutorial.mvvm;
+package com.tutorial.mvp;
 
-import com.tutorial.mvvm.controller.Controller;
-import com.tutorial.mvvm.db.DB;
-import com.tutorial.mvvm.model.Model;
+import com.tutorial.mvp.presenter.Presenter;
+import com.tutorial.mvp.db.DB;
+import com.tutorial.mvp.model.Model;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -14,9 +14,9 @@ import java.util.Optional;
 import static org.junit.Assert.*;
 
 @RunWith(Enclosed.class)
-public class ControllerTest {
+public class PresenterTest {
 
-    private static final Controller underTest = Controller.INSTANCE;
+    private static final Presenter underTest = Presenter.INSTANCE;
 
     public static class GetAllTest {
 

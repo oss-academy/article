@@ -1,10 +1,10 @@
 package com.tutorial.mvvm.view.console;
 
-import com.tutorial.mvvm.controller.Controller;
 import com.tutorial.mvvm.model.Model;
 import com.tutorial.mvvm.view.InputModel;
 import com.tutorial.mvvm.view.View;
 import com.tutorial.mvvm.view.console.command.*;
+import com.tutorial.mvvm.viewmodel.ViewModel;
 
 import java.util.*;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -13,7 +13,6 @@ import java.util.stream.Stream;
 import static com.tutorial.mvvm.util.ArrayUtils.convertToString;
 import static com.tutorial.mvvm.view.console.Response.*;
 import static com.tutorial.mvvm.view.console.command.CommandName.*;
-import static com.tutorial.mvvm.view.console.command.CommandName.EXIT;
 import static java.util.stream.Collectors.toMap;
 
 public final class ConsoleView implements Runnable, View<Model, InputModel> {
@@ -30,7 +29,7 @@ public final class ConsoleView implements Runnable, View<Model, InputModel> {
 
     private Model[] models = new Model[0];
 
-    private final Controller controller = Controller.INSTANCE;
+    private final ViewModel viewModel = ViewModel.INSTANCE;
 
     private String numberInput;
 
@@ -53,6 +52,7 @@ public final class ConsoleView implements Runnable, View<Model, InputModel> {
     public ConsoleView() {
         bindAction();
         initCommandGroup();
+        viewModel.addView(this);
     }
 
     @Override
@@ -81,9 +81,67 @@ public final class ConsoleView implements Runnable, View<Model, InputModel> {
 
     @Override
     public void represent() {
-        System.out.print(convertToString(models, "models"));
+        System.out.print(convertToString("models", models));
     }
 
+    @Override
+    public void update(Model[] models) {
+        setModel(models);
+        represent();
+    }
+
+    @Override
+    public void bindAction() {
+        newCommand.setAction(param -> {
+            setInput();
+            return ok();
+        });
+
+        saveCommand.setAction(param -> {
+            viewModel.save(getInput());
+            return ok();
+        });
+
+        viewCommand.setAction(param -> {
+            if (param.containsKey("id")) {
+                Optional<Model> result = viewModel.getById(Integer.parseInt(param.get("id").toString()));
+                result.ifPresent(this::setModel);
+            } else {
+                Model[] result = viewModel.getAll();
+                setModel(result);
+            }
+            represent();
+            return ok();
+        });
+
+        deleteCommand.setAction(param -> {
+            if (param.containsKey("id")) {
+                viewModel.deleteById(Integer.parseInt(param.get("id").toString()));
+            } else {
+                System.out.println("delete all is not allowed");
+            }
+            return ok();
+        });
+
+        helpCommand.setAction(param -> {
+            var str = HELP.getValue() + ": show help\n" +
+                    VIEW.getValue() + " [id=number]: view persisted models\n" +
+                    NEW.getValue() + ": initial new model\n" +
+                    SAVE.getValue() + ": save new model to storage\n" +
+                    DELETE.getValue() + " [id=number]: delete persisted models from storage\n" +
+                    EXIT.getValue() + ": exit";
+
+            System.out.println(str);
+            return empty();
+        });
+
+        exitCommand.setAction(param -> {
+            isAlive.set(false);
+            return bye();
+        });
+    }
+
+    @Override
     public void run() {
         System.out.print(WELCOME_MESSAGE);
         while (isAlive.get()) {
@@ -119,55 +177,6 @@ public final class ConsoleView implements Runnable, View<Model, InputModel> {
 
     }
 
-    private void bindAction() {
-        newCommand.setAction(param -> {
-                    setInput();
-                    return ok();
-                });
-
-        saveCommand.setAction(param -> {
-                    controller.save(getInput());
-                    return ok();
-                });
-
-        viewCommand.setAction(param -> {
-                    if (param.containsKey("id")) {
-                        Optional<Model> result = controller.getById(Integer.parseInt(param.get("id").toString()));
-                        result.ifPresent(this::setModel);
-                    } else {
-                        Model[] result = controller.getAll();
-                        setModel(result);
-                    }
-                    represent();
-                    return ok();
-                });
-
-        deleteCommand.setAction(param -> {
-                    if (param.containsKey("id")) {
-                        controller.deleteById(Integer.parseInt(param.get("id").toString()));
-                    } else {
-                        System.out.println("delete all is not allowed");
-                    }
-                    return ok();
-                });
-
-        helpCommand
-                .setAction(param -> {var str = HELP.getValue() + ": show help\n" +
-                            VIEW.getValue() + " [id=number]: view persisted models\n" +
-                            NEW.getValue() + ": initial new model\n" +
-                            SAVE.getValue() + ": save new model to storage\n" +
-                            DELETE.getValue() + " [id=number]: delete persisted models from storage\n" +
-                            EXIT.getValue() + ": exit";
-
-                    System.out.println(str);
-                    return empty();
-                });
-
-        exitCommand.setAction(param -> {
-                    isAlive.set(false);
-                    return bye();
-                });
-    }
     private void initCommandGroup() {
         commandGroup.add(newCommand);
         commandGroup.add(saveCommand);

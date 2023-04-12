@@ -9,7 +9,7 @@ public record Model(Integer id, String text, Integer number) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Model model = (Model) o;
-        return id.equals(model.id) ;
+        return id.equals(model.id);
     }
 
     @Override

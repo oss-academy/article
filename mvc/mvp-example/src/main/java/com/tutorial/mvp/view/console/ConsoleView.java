@@ -1,6 +1,6 @@
 package com.tutorial.mvp.view.console;
 
-import com.tutorial.mvp.controller.Controller;
+import com.tutorial.mvp.presenter.Presenter;
 import com.tutorial.mvp.model.Model;
 import com.tutorial.mvp.view.InputModel;
 import com.tutorial.mvp.view.View;
@@ -27,7 +27,7 @@ public final class ConsoleView implements Runnable, View<Model, InputModel> {
 
     private Model[] models = new Model[0];
 
-    private final Controller controller = Controller.INSTANCE;
+    private final Presenter presenter = Presenter.INSTANCE;
 
     private String numberInput;
 
@@ -123,16 +123,16 @@ public final class ConsoleView implements Runnable, View<Model, InputModel> {
                 });
 
         saveCommand.setAction(param -> {
-                    controller.save(getInput());
+                    presenter.save(getInput());
                     return Response.ok();
                 });
 
         viewCommand.setAction(param -> {
                     if (param.containsKey("id")) {
-                        Optional<Model> result = controller.getById(Integer.parseInt(param.get("id").toString()));
+                        Optional<Model> result = presenter.getById(Integer.parseInt(param.get("id").toString()));
                         result.ifPresent(this::setModel);
                     } else {
-                        Model[] result = controller.getAll();
+                        Model[] result = presenter.getAll();
                         setModel(result);
                     }
                     represent();
@@ -141,7 +141,7 @@ public final class ConsoleView implements Runnable, View<Model, InputModel> {
 
         deleteCommand.setAction(param -> {
                     if (param.containsKey("id")) {
-                        controller.deleteById(Integer.parseInt(param.get("id").toString()));
+                        presenter.deleteById(Integer.parseInt(param.get("id").toString()));
                     } else {
                         System.out.println("delete all is not allowed");
                     }

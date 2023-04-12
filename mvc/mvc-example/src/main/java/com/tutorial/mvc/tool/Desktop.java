@@ -1,7 +1,7 @@
 package com.tutorial.mvc.tool;
 
 import com.tutorial.mvc.controller.Controller;
-import com.tutorial.mvc.view.form.FormView;
+import com.tutorial.mvc.view.desktop.DesktopView;
 
 import javax.swing.*;
 import java.awt.*;
@@ -11,9 +11,9 @@ public class Desktop extends JFrame {
 
     private final Controller controller;
 
-    private final FormView view;
+    private final DesktopView view;
 
-    public Desktop(Controller controller, FormView view) throws HeadlessException {
+    public Desktop(Controller controller, DesktopView view) throws HeadlessException {
         this.controller = controller;
         this.view = view;
         bindAction();

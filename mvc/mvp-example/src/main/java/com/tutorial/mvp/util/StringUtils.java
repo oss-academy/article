@@ -12,7 +12,7 @@ public final class StringUtils {
     }
 
     public static String requireNonEmpty(String str) {
-        if (isEmpty(str)){
+        if (isEmpty(str)) {
             throw new RuntimeException("string is empty");
         }
 

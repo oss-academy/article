@@ -1,7 +1,7 @@
 package com.tutorial.mvp;
 
 import com.tutorial.mvp.view.console.ConsoleView;
-import com.tutorial.mvp.view.form.FormView;
+import com.tutorial.mvp.view.desktop.DesktopView;
 
 import javax.swing.*;
 
@@ -15,7 +15,7 @@ public class Main {
     private static void runDesktopView() {
         SwingUtilities.invokeLater(() -> {
             try {
-                new FormView();
+                new DesktopView();
             } catch (Exception e) {
                 System.out.println(e.getMessage());
             }
@@ -31,9 +31,9 @@ public class Main {
 
         switch (args[0]) {
             case "console" -> runConsoleView();
-            case "form" -> runDesktopView();
+            case "desktop" -> runDesktopView();
             default -> System.out.println(
-                    "the view is not valid\nconsole and form are the supported view"
+                    "the view is not valid\nconsole and desktop are the supported view"
             );
         }
 

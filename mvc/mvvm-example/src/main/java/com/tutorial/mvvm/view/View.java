@@ -1,5 +1,7 @@
 package com.tutorial.mvvm.view;
 
+import com.tutorial.mvvm.model.Model;
+
 public interface View<T, E> {
     T[] getModel();
 
@@ -11,4 +13,7 @@ public interface View<T, E> {
 
     void represent();
 
+    void update(Model[] models);
+
+    void bindAction();
 }

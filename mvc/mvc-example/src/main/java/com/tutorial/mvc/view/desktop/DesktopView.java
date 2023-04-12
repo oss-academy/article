@@ -1,20 +1,16 @@
-package com.tutorial.mvp.view.form;
+package com.tutorial.mvc.view.desktop;
 
-import com.tutorial.mvp.controller.Controller;
-import com.tutorial.mvp.model.Model;
-import com.tutorial.mvp.view.InputModel;
-import com.tutorial.mvp.view.View;
+import com.tutorial.mvc.model.Model;
+import com.tutorial.mvc.view.InputModel;
+import com.tutorial.mvc.view.View;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
-import java.awt.event.ActionEvent;
 import java.util.stream.IntStream;
 
-public final class FormView extends JFrame implements View<Model, InputModel> {
+public final class DesktopView extends JPanel implements View<Model, InputModel> {
 
     private Model[] models = new Model[0];
-
-    private final Controller controller = Controller.INSTANCE;
 
     private final JTextField numberInput = new JTextField(20);
 
@@ -33,14 +29,8 @@ public final class FormView extends JFrame implements View<Model, InputModel> {
 
     private final JScrollPane tableScroll = new JScrollPane(table);
 
-    public FormView() {
-        setTitle("MVP Desktop");
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        bindAction();
-        add(design());
-        pack();
-        setLocationRelativeTo(null);
-        setVisible(true);
+    public DesktopView() {
+        design();
     }
 
     @Override
@@ -74,28 +64,18 @@ public final class FormView extends JFrame implements View<Model, InputModel> {
                     table.setValueAt(models[row].number(), row, 2);
                 });
     }
-    private void bindAction() {
-        saveButton.addActionListener(new AbstractAction() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        controller.save(getInput());
-                    }
-                });
 
-        viewButton.addActionListener(new AbstractAction() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        Model[] result = controller.getAll();
-                        setModel(result);
-                        represent();
-                    }
-                });
+    public JButton getSaveButton() {
+        return saveButton;
     }
 
-    private JPanel design() {
-        JPanel panel = new JPanel();
-        GroupLayout layout = new GroupLayout(panel);
-        panel.setLayout(layout);
+    public JButton getViewButton() {
+        return viewButton;
+    }
+
+    private void design() {
+        GroupLayout layout = new GroupLayout(this);
+        setLayout(layout);
         layout.setAutoCreateGaps(true);
         layout.setAutoCreateContainerGaps(true);
         layout.setHorizontalGroup(
@@ -112,8 +92,7 @@ public final class FormView extends JFrame implements View<Model, InputModel> {
                                 .addComponent(saveButton)
                                 .addComponent(viewButton))
                         .addGroup(layout.createSequentialGroup()
-                                .addComponent(tableScroll))
-        );
+                                .addComponent(tableScroll)));
         layout.setVerticalGroup(
                 layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup()
@@ -128,8 +107,6 @@ public final class FormView extends JFrame implements View<Model, InputModel> {
                                 .addComponent(viewButton))
                         .addGroup(layout.createParallelGroup()
                                 .addComponent(tableScroll)));
-
-        return panel;
     }
 
 }

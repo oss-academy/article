@@ -42,6 +42,16 @@ public final class TestConsoleView implements View<Model, InputModel> {
 
     @Override
     public void represent() {
-        System.out.print(convertToString(models, "models"));
+        System.out.print(convertToString("models", models));
+    }
+
+    @Override
+    public void update(Model[] models) {
+
+    }
+
+    @Override
+    public void bindAction() {
+
     }
 }

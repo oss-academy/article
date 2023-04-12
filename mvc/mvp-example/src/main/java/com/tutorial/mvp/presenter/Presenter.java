@@ -1,27 +1,27 @@
-package com.tutorial.mvvm.controller;
+package com.tutorial.mvp.presenter;
 
-import com.tutorial.mvvm.db.DB;
-import com.tutorial.mvvm.model.Model;
-import com.tutorial.mvvm.view.InputModel;
+import com.tutorial.mvp.db.DB;
+import com.tutorial.mvp.model.Model;
+import com.tutorial.mvp.util.StringUtils;
+import com.tutorial.mvp.view.InputModel;
 
 import java.util.Optional;
 
-import static com.tutorial.mvvm.util.StringUtils.requireNonEmpty;
 import static java.util.Objects.requireNonNull;
 
-public final class Controller {
+public final class Presenter {
 
-    public static final Controller INSTANCE = new Controller();
+    public static final Presenter INSTANCE = new Presenter();
 
-    private Controller() {
+    private Presenter() {
     }
 
     public int save(InputModel inputModel) {
         requireNonNull(inputModel);
 
         var input = requireNonNull(inputModel);
-        var number = Integer.parseInt(requireNonEmpty(input.number().trim()));
-        var text = requireNonEmpty(input.text().trim());
+        var number = Integer.parseInt(StringUtils.requireNonEmpty(input.number().trim()));
+        var text = StringUtils.requireNonEmpty(input.text().trim());
 
 
         var id = DB.MODEL_ID.incrementAndGet();

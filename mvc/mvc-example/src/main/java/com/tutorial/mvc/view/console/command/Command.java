@@ -14,7 +14,7 @@ public abstract class Command {
 
     private Map<String, Object> args = new HashMap<>();
 
-    private Function<Map<String, Object>, Optional<Response>> action;
+    private Function<Map<String, Object>, Optional<Response>> action = map -> Response.empty();
 
     public Command(String name) {
         this.name = name;

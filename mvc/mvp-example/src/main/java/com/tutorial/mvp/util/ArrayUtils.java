@@ -14,7 +14,9 @@ public final class ArrayUtils {
                 "\n" +
                 "==================================================" +
                 "\n" +
-                format("%s", Stream.of(arr).map(Object::toString).collect(joining("\n"))) +
+                format("%s", Stream.of(arr)
+                        .map(Object::toString)
+                        .collect(joining("\n"))) +
                 "\n" +
                 "==================================================" +
                 "\n";

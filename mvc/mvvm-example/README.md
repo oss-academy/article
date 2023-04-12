@@ -22,13 +22,19 @@ mvn  test
 In order to run desktop version
 
 ```bash
-java -cp ./target/mvvm-example.jar com.tutorial.mvvm.Main "form"
+java -cp ./target/mvvm-example.jar com.tutorial.mvvm.Main "desktop"
 ```
 
 In order to run console version
 
 ```bash
 java -cp ./target/mvvm-example.jar com.tutorial.mvvm.Main "console"
+```
+
+In order to run multi view
+
+```bash
+java -cp ./target/mvvm-example.jar com.tutorial.mvvm.Main "all"
 ```
 
 **<p align="center">[Top](#MVVM-Example)</p>**

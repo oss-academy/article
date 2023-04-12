@@ -1,8 +1,8 @@
 package com.tutorial.mvc.tool;
 
 import com.tutorial.mvc.controller.Controller;
-import com.tutorial.mvc.view.console.Response;
 import com.tutorial.mvc.view.console.ConsoleView;
+import com.tutorial.mvc.view.console.Response;
 import com.tutorial.mvc.view.console.command.Command;
 
 import java.util.*;
@@ -38,6 +38,7 @@ public class Console implements Runnable {
         bindAction();
     }
 
+    @Override
     public void run() {
         System.out.print(WELCOME_MESSAGE);
         while (isAlive.get()) {
@@ -56,7 +57,7 @@ public class Console implements Runnable {
 
 
             } catch (Exception e) {
-                System.out.println("command: " + commandParts[0] + "\nerror message: " + e.getMessage() + "\n");
+                System.err.println("command: " + commandParts[0] + "\nerror message: " + e.getMessage() + "\n");
             }
         }
     }

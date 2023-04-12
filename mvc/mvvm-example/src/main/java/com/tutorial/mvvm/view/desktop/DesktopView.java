@@ -1,20 +1,20 @@
-package com.tutorial.mvvm.view.form;
+package com.tutorial.mvvm.view.desktop;
 
-import com.tutorial.mvvm.controller.Controller;
 import com.tutorial.mvvm.model.Model;
 import com.tutorial.mvvm.view.InputModel;
 import com.tutorial.mvvm.view.View;
+import com.tutorial.mvvm.viewmodel.ViewModel;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.event.ActionEvent;
 import java.util.stream.IntStream;
 
-public final class FormView extends JFrame implements View<Model, InputModel> {
+public final class DesktopView extends JFrame implements View<Model, InputModel> {
 
     private Model[] models = new Model[0];
 
-    private final Controller controller = Controller.INSTANCE;
+    private final ViewModel viewModel = ViewModel.INSTANCE;
 
     private final JTextField numberInput = new JTextField(20);
 
@@ -28,12 +28,12 @@ public final class FormView extends JFrame implements View<Model, InputModel> {
 
     private final JButton viewButton = new JButton("View");
 
-    private final JTable table = new JTable(new DefaultTableModel(new Object[]{"ID","Text", "Number"}, 10) {
+    private final JTable table = new JTable(new DefaultTableModel(new Object[]{"ID", "Text", "Number"}, 10) {
     });
 
     private final JScrollPane tableScroll = new JScrollPane(table);
 
-    public FormView() {
+    public DesktopView() {
         setTitle("MVVM Desktop");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         bindAction();
@@ -41,6 +41,7 @@ public final class FormView extends JFrame implements View<Model, InputModel> {
         pack();
         setLocationRelativeTo(null);
         setVisible(true);
+        viewModel.addView(this);
     }
 
     @Override
@@ -74,22 +75,30 @@ public final class FormView extends JFrame implements View<Model, InputModel> {
                     table.setValueAt(models[row].number(), row, 2);
                 });
     }
-    private void bindAction() {
+
+    @Override
+    public void update(Model[] models) {
+        setModel(models);
+        represent();
+    }
+
+    @Override
+    public void bindAction() {
         saveButton.addActionListener(new AbstractAction() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        controller.save(getInput());
-                    }
-                });
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                viewModel.save(getInput());
+            }
+        });
 
         viewButton.addActionListener(new AbstractAction() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        Model[] result = controller.getAll();
-                        setModel(result);
-                        represent();
-                    }
-                });
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Model[] result = viewModel.getAll();
+                setModel(result);
+                represent();
+            }
+        });
     }
 
     private JPanel design() {

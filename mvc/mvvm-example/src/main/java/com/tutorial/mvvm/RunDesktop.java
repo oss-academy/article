@@ -1,6 +1,6 @@
 package com.tutorial.mvvm;
 
-import com.tutorial.mvvm.view.form.FormView;
+import com.tutorial.mvvm.view.desktop.DesktopView;
 
 import javax.swing.*;
 
@@ -10,7 +10,7 @@ public class RunDesktop {
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
                 try {
-                    new FormView();
+                    new DesktopView();
                 } catch (Exception e) {
                     System.out.println("exception message = " + e.getMessage());
                 }

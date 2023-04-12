@@ -9,12 +9,14 @@ public final class ArrayUtils {
     private ArrayUtils() {
     }
 
-    public static String convertToString(Object[] arr, String title) {
+    public static String convertToString(String title, Object... arr) {
         return title +
                 "\n" +
                 "==================================================" +
                 "\n" +
-                format("%s", Stream.of(arr).map(Object::toString).collect(joining("\n"))) +
+                format("%s", Stream.of(arr)
+                        .map(Object::toString)
+                        .collect(joining("\n"))) +
                 "\n" +
                 "==================================================" +
                 "\n";
