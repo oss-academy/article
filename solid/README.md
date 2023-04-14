@@ -35,8 +35,8 @@ will move on to their counterparts in the component world, and then to the princ
 
 </p>
 
-* [Single Responsibility Principle (SRP)](#single-responsibility-principle--(SRP-))
-* [Open Close Principle (OCP)](#open-closed-principle--(OCP-))
+* [Single Responsibility Principle (SRP)](#single-responsibility-principle-srp)
+* [Open Close Principle (OCP)](#open-closed-principle-ocp)
 * [The Liskov Substitution Principle (LSP)](#the-liskov-substitution-principle-lsp)
 * [The Interface Segregation Principle (ISP)](#the-interface-segregation-principle-isp)
 * [The dependency Inversion Principle](#the-dependency-inversion-principle)
@@ -226,6 +226,13 @@ When you make a change, unexpected parts of the system break. (Fragility)
 It is hard to reuse in another application because it cannot be disentangled from
 the current application.
 
+
+
+## References
+* [Robert C. Marting Website](http://cleancoder.com/)
+* [Clean Architecture by Robert C. Martin](https://www.amazon.com/dp/0134494164)
+
+**<p align="center"> [Top](#solid-principles) </p>**
 
 
 
