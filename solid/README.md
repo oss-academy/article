@@ -37,6 +37,9 @@ will move on to their counterparts in the component world, and then to the princ
 
 * [Single Responsibility Principle (SRP)](#single-responsibility-principle--(SRP-))
 * [Open Close Principle (OCP)](#open-closed-principle--(OCP-))
+* [The Liskov Substitution Principle (LSP)](#the-liskov-substitution-principle-lsp)
+* [The Interface Segregation Principle (ISP)](#the-interface-segregation-principle-isp)
+* [The dependency Inversion Principle](#the-dependency-inversion-principle)
 
 ## Single Responsibility Principle (SRP)
 
@@ -91,7 +94,8 @@ The OCP is one of the driving forces behind the architecture of systems. The goa
 
 <p align="justify">
 
-In the preceding figure, “Interactor/Business” component is a higher-level component, and the “view” component is a lower-level
+In the preceding figure, “Interactor/Business” component is a higher-level component, and the “view” component is a
+lower-level
 component.
 
 </p>
@@ -154,5 +158,76 @@ public void mathod-name(Object param){
 ```
 
 **<p align="center"> [Top](#SOLID-Principles) </p>**
+
+## The Liskov Substitution Principle (LSP)
+
+<p align="justify">
+
+Functions that use pointers or references to base classes must be able to use objects of derived classes without knowing
+it.
+The above is a paraphrase of the Liskov Substitution Principle (LSP). Barbara Liskov first wrote it as follows:
+What is wanted here is something like the following substitution property: If for each object o1 of type S there is an
+object o2 of type T such that for all programs P defined in terms of T, the behavior of P is unchanged when o1 is
+substituted for o2 then S is a subtype of T.
+
+</p>
+
+### Violate
+
+<p align="justify">
+
+If we use `instanceof` in code, then violate the Liskov Substitution Principle.
+
+</p>
+
+## The Interface Segregation Principle (ISP)
+
+<p align="justify">
+
+Clients should not be forced to depend upon interfaces that they do not use.
+The interfaces of the class can be broken up into groups of member functions. Each group serves a different set of
+clients. Thus, some clients use one group of member functions, and other clients use the other groups.
+
+</p>
+
+### Violate
+
+<p align="justify">
+
+If we implement method(s) of an interface with an empty body or just throw the not implemented exception, violate the
+interface segregation principle.
+
+</p>
+
+## The dependency Inversion Principle
+
+<p align="justify">
+
+Use interface and abstraction instead of concrete class in modules, especially, when a module depends upon another
+module.
+
+</p>
+
+### What’s bad design?
+
+<p align="justify">
+
+When rigidity, fragility or immobility exist in your application, then your application is badly designed.
+
+</p>
+
+### Rigidity
+It is hard to change because every change affects too many other parts of the system
+
+### Fragility
+When you make a change, unexpected parts of the system break. (Fragility)
+
+### Immobility
+It is hard to reuse in another application because it cannot be disentangled from
+the current application.
+
+
+
+
 
 
