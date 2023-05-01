@@ -37,9 +37,9 @@ will move on to their counterparts in the component world, and then to the princ
 
 * [Single Responsibility Principle (SRP)](#single-responsibility-principle-srp)
 * [Open Close Principle (OCP)](#open-closed-principle-ocp)
-* [The Liskov Substitution Principle (LSP)](#the-liskov-substitution-principle-lsp)
-* [The Interface Segregation Principle (ISP)](#the-interface-segregation-principle-isp)
-* [The dependency Inversion Principle](#the-dependency-inversion-principle)
+* [Liskov Substitution Principle (LSP)](#liskov-substitution-principle-lsp)
+* [Interface Segregation Principle (ISP)](#interface-segregation-principle-isp)
+* [Dependency Inversion Principle](#dependency-inversion-principle)
 
 ## Single Responsibility Principle (SRP)
 
@@ -157,9 +157,7 @@ public void mathod-name(Object param){
 
 ```
 
-**<p align="center"> [Top](#SOLID-Principles) </p>**
-
-## The Liskov Substitution Principle (LSP)
+## Liskov Substitution Principle (LSP)
 
 <p align="justify">
 
@@ -180,7 +178,7 @@ If we use `instanceof` in code, then violate the Liskov Substitution Principle.
 
 </p>
 
-## The Interface Segregation Principle (ISP)
+## Interface Segregation Principle (ISP)
 
 <p align="justify">
 
@@ -199,7 +197,7 @@ interface segregation principle.
 
 </p>
 
-## The dependency Inversion Principle
+## Dependency Inversion Principle
 
 <p align="justify">
 
@@ -231,6 +229,7 @@ the current application.
 ## References
 * [Robert C. Marting Website](http://cleancoder.com/)
 * [Clean Architecture by Robert C. Martin](https://www.amazon.com/dp/0134494164)
+* [ChatGPT](https://chat.openai.com/chat)
 
 **<p align="center"> [Top](#solid-principles) </p>**
 
