@@ -8,6 +8,8 @@ module eventstore.example {
     requires com.fasterxml.jackson.databind;
     requires com.fasterxml.jackson.annotation;
     requires org.slf4j;
-    requires reload4j;
+    requires log4j.api;
+    requires log4j.core;
+    requires log4j.slf4j.impl;
     requires db.client.java;
 }

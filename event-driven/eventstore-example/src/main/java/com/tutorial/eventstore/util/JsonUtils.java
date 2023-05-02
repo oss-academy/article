@@ -7,7 +7,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
-import java.util.UUID;
 
 import static java.util.Objects.requireNonNull;
 
@@ -20,7 +19,7 @@ public final class JsonUtils {
     private JsonUtils() {
     }
 
-    public static String toJsonString(final Object o){
+    public static String toJsonString(final Object o) {
         requireNonNull(o);
 
         try {
@@ -31,7 +30,7 @@ public final class JsonUtils {
         }
     }
 
-    public static<T extends Event> Object toType(final byte[] data, final Class<T> type) {
+    public static <T extends Event> Object toType(final byte[] data, final Class<T> type) {
         requireNonNull(data);
         requireNonNull(type);
 

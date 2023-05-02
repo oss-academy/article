@@ -2,7 +2,6 @@ package com.tutorial.eventstore.connection;
 
 import com.eventstore.dbclient.EventStoreDBClient;
 import com.eventstore.dbclient.EventStoreDBClientSettings;
-import com.eventstore.dbclient.EventStoreDBConnectionString;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
