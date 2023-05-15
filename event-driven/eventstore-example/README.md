@@ -1,6 +1,5 @@
 # <p align="center">Event Driven Example</p>
 
-
 ## Prerequisites
 
 * Java 17
@@ -20,10 +19,10 @@ mvn clean package -DskipTests=true
 mvn test
 ```
 
-
 ## Dashboard
-http://localhost:2113/
 
+When the evenstore is running it is possible to access its dashboard by browsing the URL for localhost 
+[http://localhost:2113](http://localhost:2113).
 
 **<p align="center"> [Top](#event-driven-example) </p>**
 

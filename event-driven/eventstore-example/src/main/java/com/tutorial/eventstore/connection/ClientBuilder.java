@@ -45,6 +45,11 @@ public final class ClientBuilder {
         return this;
     }
 
+    /**
+     * The method has to create a client based on {@value 'esdb//host:port?tls=true'} URL.
+     *
+     * @return {@link EventStoreDBClient}
+     */
     public EventStoreDBClient build() {
         var urlBuilder = new StringBuilder()
                 .append(protocol)
@@ -54,11 +59,11 @@ public final class ClientBuilder {
                 .append(port);
 
         if (!parameters.isEmpty()) {
-            urlBuilder.append("?")
-                    .append(joinEntry(parameters, "=", ","));
+            urlBuilder.append("?");
+            urlBuilder.append(joinEntry(parameters, "=", ","));
         }
 
-        EventStoreDBClientSettings settings = requireNonNull(parseOrThrow(urlBuilder.toString()));
+        var settings = requireNonNull(parseOrThrow(urlBuilder.toString()), "client setting is null");
 
         if (logger.isInfoEnabled()) {
             logger.info("hosts: {}", joinArray(settings.getHosts(), ","));
@@ -67,7 +72,7 @@ public final class ClientBuilder {
             logger.info("connection was established");
         }
 
-        var client = requireNonNull(EventStoreDBClient.create(settings));
+        var client = requireNonNull(EventStoreDBClient.create(settings), "client is null");
 
         if (logger.isInfoEnabled()) {
             logger.info("client is ready");

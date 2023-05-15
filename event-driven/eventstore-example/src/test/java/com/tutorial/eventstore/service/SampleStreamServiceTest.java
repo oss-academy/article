@@ -15,7 +15,6 @@ class SampleStreamServiceTest extends BaseTest {
 
     private final SampleStreamService underTest = SampleStreamService.INSTANCE;
 
-
     @Nested
     class AppendTest {
         @AfterEach
@@ -55,6 +54,25 @@ class SampleStreamServiceTest extends BaseTest {
 
             assertNotNull(result);
             assertFalse(result.isEmpty());
+        }
+    }
+
+    @Nested
+    class DeleteTest {
+
+        @BeforeEach
+        void setUp() {
+            var appendTest = new AppendTest();
+            appendTest.GivenEvent_WhenEventAppend_ShouldBeSucceeded();
+        }
+
+        @Test
+        void GivenEventType_WhenGetAll_ThenReturnListOfEvents() {
+            try {
+                underTest.deleteStream();
+            } catch (Exception e) {
+                fail("delete sample stream failed", e);
+            }
         }
     }
 }

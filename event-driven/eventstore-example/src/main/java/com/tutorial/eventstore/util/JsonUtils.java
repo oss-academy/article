@@ -24,8 +24,8 @@ public final class JsonUtils {
 
         try {
             return mapper.writeValueAsString(o);
-        } catch (JsonProcessingException e) {
-            logger.error(e.getMessage());
+        } catch (JsonProcessingException exception) {
+            logger.error("processing json failed due to: {}", exception.getMessage());
             return "";
         }
     }
@@ -36,8 +36,8 @@ public final class JsonUtils {
 
         try {
             return mapper.readValue(data, type);
-        } catch (IOException e) {
-            logger.error(e.getMessage());
+        } catch (IOException exception) {
+            logger.error("converting the json to {} failed due to: {}", type, exception.getMessage());
             return (Event) () -> null;
         }
     }

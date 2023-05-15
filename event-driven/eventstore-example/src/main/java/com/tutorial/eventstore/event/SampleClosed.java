@@ -4,7 +4,7 @@ import java.util.UUID;
 
 import static com.tutorial.eventstore.util.JsonUtils.toJsonString;
 
-public record SampleCreated(UUID id, String name) implements Event {
+public record SampleClosed(UUID id, String name) implements Event {
 
     @Override
     public UUID getId() {

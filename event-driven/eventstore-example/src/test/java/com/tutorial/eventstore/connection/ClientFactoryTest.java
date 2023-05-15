@@ -10,7 +10,7 @@ class ClientFactoryTest extends BaseTest {
 
     @Test
     void ShouldCreatedClientForLocalHostDatabase() {
-        EventStoreDBClient client = ClientFactory.createClientForLocalHost();
-        assertNotNull(client);
+        EventStoreDBClient result = ClientFactory.createClientForLocalHost();
+        assertNotNull(result);
     }
 }

@@ -10,19 +10,19 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 class ClientBuilderTest extends BaseTest {
 
     @Test
-    void GivenLocalInfo_WhenAssignParameter_ThenBuildClient() {
+    void GivenLocalInfo_WhenAssignParameter_ThenReturnsClient() {
         var givenProtocol = LocalHostParameter.PROTOCOL;
         var givenHost = LocalHostParameter.HOST;
         var givenPort = LocalHostParameter.PORT;
         var givenTls = LocalHostParameter.TLS;
 
-        EventStoreDBClient client = new ClientBuilder()
+        var result = new ClientBuilder()
                 .setProtocol(givenProtocol)
                 .setHost(givenHost)
                 .setPort(givenPort)
                 .setTls(givenTls)
                 .build();
 
-        assertNotNull(client);
+        assertNotNull(result);
     }
 }
