@@ -1,13 +1,11 @@
 package com.tutorial.eventstore.connection;
 
-import com.eventstore.dbclient.EventStoreDBClient;
-import com.tutorial.eventstore.BaseTest;
 import com.tutorial.eventstore.LocalHostParameter;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-class ClientBuilderTest extends BaseTest {
+class ClientBuilderTest {
 
     @Test
     void GivenLocalInfo_WhenAssignParameter_ThenReturnsClient() {

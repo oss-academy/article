@@ -1,6 +1,5 @@
 package com.tutorial.eventstore.service;
 
-import com.tutorial.eventstore.BaseTest;
 import com.tutorial.eventstore.event.SampleCreated;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -11,7 +10,7 @@ import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class SampleStreamServiceTest extends BaseTest {
+class SampleStreamServiceTest {
 
     private final SampleStreamService underTest = SampleStreamService.INSTANCE;
 
