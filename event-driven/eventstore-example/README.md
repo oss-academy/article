@@ -21,7 +21,7 @@ mvn test
 
 ## Dashboard
 
-When the evenstore is running it is possible to access its dashboard by browsing the URL for localhost 
+When the eventstore is running it is possible to access its dashboard by browsing the URL for localhost 
 [http://localhost:2113](http://localhost:2113).
 
 **<p align="center"> [Top](#event-driven-example) </p>**

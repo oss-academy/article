@@ -91,14 +91,14 @@ Model accordingly.
 
 ## References
 
-* [PARC](http://wayback.archive-it.org/10370/20180425071111/http://folk.uio.no/trygver/themes/mvc/mvc-index.html)
-* [Trygve M. H. Reenskaug](https://folk.universitetetioslo.no/trygver)
-* [Martin Fowler](https://martinfowler.com/eaaDev/uiArchs.html)
-* [Potel](http://www.wildcrest.com/Potel/Portfolio/mvp.pdf)
-* [Microsoft (xamarin)](https://learn.microsoft.com/en-us/xamarin/xamarin-forms/enterprise-application-patterns/mvvm)
-* [Microsoft (dotnet)](https://learn.microsoft.com/en-us/dotnet/architecture/maui/mvvm)
+* [MVC: PARC](http://wayback.archive-it.org/10370/20180425071111/http://folk.uio.no/trygver/themes/mvc/mvc-index.html)
+* [MVC: Trygve M. H. Reenskaug](https://folk.universitetetioslo.no/trygver)
+* [MVP: Martin Fowler](https://martinfowler.com/eaaDev/uiArchs.html)
+* [MVP: Potel](http://www.wildcrest.com/Potel/Portfolio/mvp.pdf)
+* [MVVM: Microsoft (xamarin)](https://learn.microsoft.com/en-us/xamarin/xamarin-forms/enterprise-application-patterns/mvvm)
+* [MVVM: Microsoft (dotnet)](https://learn.microsoft.com/en-us/dotnet/architecture/maui/mvvm)
 * [ChatGPT](https://chat.openai.com/chat)
 
-**<p align="center"> [Top](#MVC-Pattern) </p>**
+**<p align="center"> [Top](#mvc-pattern) </p>**
 
 

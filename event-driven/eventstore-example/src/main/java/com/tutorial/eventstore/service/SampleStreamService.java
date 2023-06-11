@@ -58,6 +58,7 @@ public final class SampleStreamService {
                     .getEvents()
                     .stream()
                     .map(event -> (Event) toType(event.getOriginalEvent().getEventData(), type))
+                    .filter(event -> event.getId() != null)
                     .toList();
 
         } catch (InterruptedException | ExecutionException exception) {
