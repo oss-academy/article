@@ -59,7 +59,7 @@ is possible to use inheritance for encapsulation.
 
 <p align="justify">
 
-YAGNI is abbreviation of **`You Ain’t Gonna Need It`**. It is a development principle behind extreme programming that
+YAGNI is an abbreviation of **`You Ain’t Gonna Need It`**. It is a development principle behind extreme programming that
 suggests not adding functionality unless it is necessary.
 
 </p>
@@ -73,8 +73,9 @@ suggests not adding functionality unless it is necessary.
 
 <p align="justify">
 
-KISS stands for **`Keep It Simple, Stupid`** which reportedly coined by Clarence Leonard "Kelly" Johnson lead
-engineer at the Lockheed Martin. It is a software principle that prefers simplicity over unnecessary complexity.
+KISS stands for **`Keep It Simple, Stupid`** which reportedly was coined by Clarence Leonard "Kelly" Johnson lead
+engineer at Lockheed Martin. It is used in software development as a software principle that prefers simplicity over
+unnecessary complexity.
 
 </p>
 

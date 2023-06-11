@@ -1,8 +1,8 @@
 # <p align="center">Article</p>
 
 ### [MVC](mvc)
-### [SOLID](solid)
 ### [Software Principles](software-principle)
+### [SOLID](solid)
 ### [Event Driven](event-driven)
 ### [Java In-Memory Database](inmemory-db)
 ### [Security](security)
