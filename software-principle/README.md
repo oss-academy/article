@@ -64,6 +64,10 @@ suggests not adding functionality unless it is necessary.
 
 </p>
 
+### Tip
+
+YAGNI does not mean that developers should avoid all planning.
+
 ### Advantage
 
 * keep the codebase as simple as possible
@@ -78,6 +82,10 @@ engineer at Lockheed Martin. It is used in software development as a software pr
 unnecessary complexity.
 
 </p>
+
+### Tip
+
+KISS does not mean that developers should avoid using good software engineering solutions or do oversimplification.
 
 ### Advantage
 
