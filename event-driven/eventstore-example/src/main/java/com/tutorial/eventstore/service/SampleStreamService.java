@@ -1,76 +1,101 @@
 package com.tutorial.eventstore.service;
 
-import com.eventstore.dbclient.EventData;
+import com.eventstore.dbclient.DeleteStreamOptions;
 import com.eventstore.dbclient.EventStoreDBClient;
 import com.eventstore.dbclient.ReadStreamOptions;
-import com.tutorial.eventstore.connection.ClientFactory;
+import com.eventstore.dbclient.WriteResult;
 import com.tutorial.eventstore.event.Event;
+import com.tutorial.eventstore.stream.EventStream;
+import com.tutorial.eventstore.stream.SampleEventStream;
+import com.tutorial.eventstore.util.EventStoreClientFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
+import java.util.Objects;
+import java.util.Optional;
 
-import static com.tutorial.eventstore.util.JsonUtils.toType;
+import static com.tutorial.eventstore.util.EventUtils.toJsonEvent;
+import static com.tutorial.eventstore.util.JsonUtils.toObjectType;
+import static com.tutorial.eventstore.util.StreamUtils.isValidStream;
 import static java.util.Objects.requireNonNull;
+import static java.util.Optional.ofNullable;
 
-public final class SampleStreamService {
+public final class SampleStreamService implements StreamService<Object, Event<Object>, EventStream<Object, Event<Object>>> {
 
-    public static final SampleStreamService INSTANCE = new SampleStreamService();
+    private static class SingletonHolder {
+        public static final SampleStreamService INSTANCE = new SampleStreamService();
+    }
 
-    public static final String STREAM_NAME = "Sample_Stream";
+    public static SampleStreamService getInstance() {
+        return SingletonHolder.INSTANCE;
+    }
 
     private final Logger logger = LoggerFactory.getLogger(SampleStreamService.class.getSimpleName());
 
-    private final EventStoreDBClient client = ClientFactory.getDefaultClient();
+    private final EventStoreDBClient client = EventStoreClientFactory.createClient();
 
     private SampleStreamService() {
+    }
+
+    @Override
+    public Optional<WriteResult> append(EventStream<Object, Event<Object>> stream) {
+        isValidStream(stream);
+
+        try {
+            return ofNullable(client.appendToStream(stream.getId(), toJsonEvent(stream.getEvents())).get())
+                    .map(result -> {
+                        if (logger.isInfoEnabled()) {
+                            logger.info("{} events added to {}", stream.getEvents().size(), stream.getId());
+                        }
+                        return result;
+                    });
+        } catch (Exception exception) {
+            logger.error("appending to the stream {} failed due to: {}", stream.getId(), exception.getMessage());
+            return Optional.empty();
+        }
 
     }
 
-    public void append(Event event) {
-        requireNonNull(event);
+    @Override
+    public Optional<EventStream<Object, Event<Object>>> read(String streamId) {
+        requireNonNull(streamId);
+        return Optional.of(new SampleEventStream(streamId, getEvents(streamId)));
+    }
 
-        EventData eventData = EventData
-                .builderAsJson(STREAM_NAME, event)
-                .build();
+    @Override
+    public void delete(String streamId) {
+        requireNonNull(streamId);
+
         try {
-            client.appendToStream(STREAM_NAME, eventData)
-                    .get();
+            client.deleteStream(streamId);
             if (logger.isInfoEnabled()) {
-                logger.info("an event added to {}: {}",STREAM_NAME,  event);
+                logger.info("{} stream deleted", SampleEventStream.class.getSimpleName());
             }
-        } catch (InterruptedException | ExecutionException exception) {
-            logger.error("appending to stream failed due to: {}", exception.getMessage());
+        } catch (Exception exception) {
+            logger.error("deleting the stream {} failed due to: {}", streamId, exception.getMessage());
         }
     }
 
-    public List<Event> getAll(Class<? extends Event> type) {
-        requireNonNull(type);
+    private List<Event<Object>> getEvents(String streamId) {
+        requireNonNull(streamId);
 
-        ReadStreamOptions options = ReadStreamOptions.get()
-                .fromStart()
-                .notResolveLinkTos();
         try {
-            return client.readStream(STREAM_NAME, options)
+            return client.readStream(streamId, ReadStreamOptions.get().fromStart().notResolveLinkTos())
                     .get()
                     .getEvents()
                     .stream()
-                    .map(event -> (Event) toType(event.getOriginalEvent().getEventData(), type))
-                    .filter(event -> event.getId() != null)
+                    .map(event -> {
+                        var originalEvent = event.getOriginalEvent();
+                        return (Event<Object>) toObjectType(originalEvent.getEventData(), originalEvent.getEventType());
+                    })
+                    .filter(Objects::nonNull)
                     .toList();
 
-        } catch (InterruptedException | ExecutionException exception) {
-            logger.error("getting all events from stream failed due to: {}", exception.getMessage());
+        } catch (Exception exception) {
+            logger.error("reading from the stream {} failed due to: {}", streamId, exception.getMessage());
             return new ArrayList<>();
-        }
-    }
-
-    public void deleteStream() {
-        client.deleteStream(STREAM_NAME);
-        if (logger.isInfoEnabled()) {
-            logger.info("{} stream deleted", STREAM_NAME);
         }
     }
 

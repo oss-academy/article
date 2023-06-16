@@ -4,7 +4,7 @@ import java.util.UUID;
 
 import static com.tutorial.eventstore.util.JsonUtils.toJsonString;
 
-public record SampleCreated(String streamId, UUID id, Object data) implements Event<Object> {
+public record SampleRemoved(String streamId, UUID id, Object data) implements Event<Object> {
 
     @Override
     public UUID getId() {

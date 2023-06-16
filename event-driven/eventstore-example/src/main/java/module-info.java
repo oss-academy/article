@@ -1,8 +1,9 @@
 module eventstore.example {
-    exports com.tutorial.eventstore.connection;
+    exports com.tutorial.eventstore.config;
     exports com.tutorial.eventstore.event;
     exports com.tutorial.eventstore.service;
     exports com.tutorial.eventstore.util;
+    exports com.tutorial.eventstore.stream;
 
     requires com.fasterxml.jackson.core;
     requires com.fasterxml.jackson.databind;
