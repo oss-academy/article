@@ -1,6 +1,5 @@
 package com.tutorial.eventstore.service;
 
-import com.eventstore.dbclient.DeleteStreamOptions;
 import com.eventstore.dbclient.EventStoreDBClient;
 import com.eventstore.dbclient.ReadStreamOptions;
 import com.eventstore.dbclient.WriteResult;
@@ -16,13 +15,20 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
-import static com.tutorial.eventstore.util.EventUtils.toJsonEvent;
+import static com.tutorial.eventstore.util.EventTransformer.toEventDataIterator;
 import static com.tutorial.eventstore.util.JsonUtils.toObjectType;
-import static com.tutorial.eventstore.util.StreamUtils.isValidStream;
-import static java.util.Objects.requireNonNull;
+import static com.tutorial.eventstore.util.StreamValidator.isValidStream;
+import static com.tutorial.eventstore.util.StringValidator.shouldNotBeNullOrEmpty;
 import static java.util.Optional.ofNullable;
 
 public final class SampleStreamService implements StreamService<Object, Event<Object>, EventStream<Object, Event<Object>>> {
+
+    private final Logger logger = LoggerFactory.getLogger(SampleStreamService.class.getSimpleName());
+
+    private final EventStoreDBClient client = EventStoreClientFactory.createClient();
+
+    private SampleStreamService() {
+    }
 
     private static class SingletonHolder {
         public static final SampleStreamService INSTANCE = new SampleStreamService();
@@ -32,19 +38,12 @@ public final class SampleStreamService implements StreamService<Object, Event<Ob
         return SingletonHolder.INSTANCE;
     }
 
-    private final Logger logger = LoggerFactory.getLogger(SampleStreamService.class.getSimpleName());
-
-    private final EventStoreDBClient client = EventStoreClientFactory.createClient();
-
-    private SampleStreamService() {
-    }
-
     @Override
-    public Optional<WriteResult> append(EventStream<Object, Event<Object>> stream) {
+    public Optional<WriteResult> append(final EventStream<Object, Event<Object>> stream) {
         isValidStream(stream);
 
         try {
-            return ofNullable(client.appendToStream(stream.getId(), toJsonEvent(stream.getEvents())).get())
+            return ofNullable(client.appendToStream(stream.getId(), toEventDataIterator(stream.getEvents())).get())
                     .map(result -> {
                         if (logger.isInfoEnabled()) {
                             logger.info("{} events added to {}", stream.getEvents().size(), stream.getId());
@@ -59,14 +58,15 @@ public final class SampleStreamService implements StreamService<Object, Event<Ob
     }
 
     @Override
-    public Optional<EventStream<Object, Event<Object>>> read(String streamId) {
-        requireNonNull(streamId);
+    public Optional<EventStream<Object, Event<Object>>> read(final String streamId) {
+        shouldNotBeNullOrEmpty(streamId, "stream Id");
+
         return Optional.of(new SampleEventStream(streamId, getEvents(streamId)));
     }
 
     @Override
-    public void delete(String streamId) {
-        requireNonNull(streamId);
+    public void delete(final String streamId) {
+        shouldNotBeNullOrEmpty(streamId, "stream Id");
 
         try {
             client.deleteStream(streamId);
@@ -78,8 +78,8 @@ public final class SampleStreamService implements StreamService<Object, Event<Ob
         }
     }
 
-    private List<Event<Object>> getEvents(String streamId) {
-        requireNonNull(streamId);
+    private List<Event<Object>> getEvents(final String streamId) {
+        shouldNotBeNullOrEmpty(streamId, "stream Id");
 
         try {
             return client.readStream(streamId, ReadStreamOptions.get().fromStart().notResolveLinkTos())

@@ -15,6 +15,10 @@ public final class EventStoreClientFactory {
     }
 
     public static EventStoreDBClient createClient() {
+        if (!System.getProperties().containsKey("db.url")) {
+            throw new IllegalArgumentException("URL of event-store db should be set as a system property: 'db.url'");
+        }
+
         var settings = requireNonNull(parseOrThrow(System.getProperty("db.url")), "client setting is null");
 
         if (LOGGER.isInfoEnabled()) {

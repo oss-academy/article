@@ -1,15 +1,11 @@
 package com.tutorial.eventstore.util;
 
-import com.eventstore.dbclient.EventData;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.tutorial.eventstore.event.Event;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.Iterator;
-import java.util.List;
-
+import static com.tutorial.eventstore.util.StringValidator.shouldNotBeNullOrEmpty;
 import static java.util.Objects.requireNonNull;
 
 public final class JsonUtils {
@@ -32,12 +28,9 @@ public final class JsonUtils {
         }
     }
 
-    public static Object toObjectType(final byte[] data, String type) {
+    public static Object toObjectType(final byte[] data, final String type) {
         requireNonNull(data);
-        requireNonNull(type);
-        if (type.isEmpty()){
-            throw new IllegalArgumentException("type must not be null");
-        }
+        shouldNotBeNullOrEmpty(type, "type");
 
         try {
             return mapper.readValue(data, Class.forName(type));

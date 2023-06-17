@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import static com.tutorial.eventstore.util.StringValidator.shouldNotBeNullOrEmpty;
 import static java.util.Objects.requireNonNull;
 
 public final class CollectionUtils {
@@ -16,8 +17,8 @@ public final class CollectionUtils {
             final String entryDelimiter) {
 
         requireNonNull(map);
-        requireNonNull(entrySplitter);
-        requireNonNull(entryDelimiter);
+        shouldNotBeNullOrEmpty(entrySplitter, "entrySplitter");
+        shouldNotBeNullOrEmpty(entryDelimiter, "entryDelimiter");
 
         return map.entrySet()
                 .stream()
@@ -27,7 +28,7 @@ public final class CollectionUtils {
 
     public static String joinArray(final Object[] arr, final String delimiter) {
         requireNonNull(arr);
-        requireNonNull(delimiter);
+        shouldNotBeNullOrEmpty(delimiter, "delimiter");
 
         return Arrays.stream(arr)
                 .map(Object::toString)

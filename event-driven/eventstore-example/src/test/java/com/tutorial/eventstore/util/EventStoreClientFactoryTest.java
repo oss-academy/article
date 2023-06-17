@@ -1,31 +1,24 @@
 package com.tutorial.eventstore.util;
 
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
+import com.tutorial.eventstore.testutil.TestEventStoreHelper;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import org.testcontainers.containers.GenericContainer;
-import org.testcontainers.junit.jupiter.Container;
-import org.testcontainers.utility.DockerImageName;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 class EventStoreClientFactoryTest {
 
-    @Container
-    private final GenericContainer<?> eventStore = new GenericContainer(DockerImageName.parse("eventstore/eventstore"))
-            .withExposedPorts(2113);
+    private static final TestEventStoreHelper eventStore = new TestEventStoreHelper();
 
-    @BeforeEach
-    void setUp() {
+    @BeforeAll
+    static void setup() {
         eventStore.start();
-        assertNotNull(eventStore);
-        assertNotNull(eventStore.getHost());
-        assertNotNull(eventStore.getFirstMappedPort());
     }
 
-    @AfterEach
-    void tearDown() {
-        eventStore.stop();
+    @AfterAll
+    static void tearDown() {
+        eventStore.shutdown();
     }
 
     @Test
