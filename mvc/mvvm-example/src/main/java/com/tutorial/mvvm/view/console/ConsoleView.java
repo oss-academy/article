@@ -11,7 +11,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.stream.Stream;
 
 import static com.tutorial.mvvm.util.ArrayUtils.convertToString;
-import static com.tutorial.mvvm.view.console.Response.*;
+import static com.tutorial.mvvm.view.console.command.Response.*;
 import static com.tutorial.mvvm.view.console.command.CommandName.*;
 import static java.util.stream.Collectors.toMap;
 

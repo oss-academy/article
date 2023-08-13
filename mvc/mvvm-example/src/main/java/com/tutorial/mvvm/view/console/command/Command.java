@@ -1,7 +1,5 @@
 package com.tutorial.mvvm.view.console.command;
 
-import com.tutorial.mvvm.view.console.Response;
-
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;

@@ -2,14 +2,14 @@ package com.tutorial.mvc.tool;
 
 import com.tutorial.mvc.controller.Controller;
 import com.tutorial.mvc.view.console.ConsoleView;
-import com.tutorial.mvc.view.console.Response;
+import com.tutorial.mvc.view.console.command.Response;
 import com.tutorial.mvc.view.console.command.Command;
 
 import java.util.*;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.stream.Stream;
 
-import static com.tutorial.mvc.view.console.Response.*;
+import static com.tutorial.mvc.view.console.command.Response.*;
 import static com.tutorial.mvc.view.console.command.CommandName.*;
 import static java.util.stream.Collectors.toMap;
 

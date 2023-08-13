@@ -1,4 +1,4 @@
-package com.tutorial.mvvm.view.console;
+package com.tutorial.mvc.view.console.command;
 
 import java.util.Optional;
 

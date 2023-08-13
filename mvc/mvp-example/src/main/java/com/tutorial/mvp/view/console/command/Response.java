@@ -1,4 +1,4 @@
-package com.tutorial.mvp.view.console;
+package com.tutorial.mvp.view.console.command;
 
 import java.util.Optional;
 
