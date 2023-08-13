@@ -4,7 +4,12 @@ import java.util.UUID;
 
 import static com.tutorial.eventstore.util.JsonUtils.toJsonString;
 
-public record SampleRemoved(String streamId, UUID id, Object data) implements Event<Object> {
+public record EventCreated(
+        String streamId,
+        UUID id,
+        Long time,
+        SerialNumber data
+) implements Event<SerialNumber> {
 
     @Override
     public UUID getId() {
@@ -17,7 +22,12 @@ public record SampleRemoved(String streamId, UUID id, Object data) implements Ev
     }
 
     @Override
-    public Object getData() {
+    public Long getTime() {
+        return time;
+    }
+
+    @Override
+    public SerialNumber getData() {
         return data;
     }
 

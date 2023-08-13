@@ -4,7 +4,9 @@ import com.tutorial.eventstore.event.Event;
 
 import java.util.List;
 
-public record SampleEventStream(String id, List<Event<Object>> events) implements EventStream<Object, Event<Object>> {
+import static java.util.Comparator.comparingLong;
+
+public record SampleEventStream<T>(String id, List<Event<T>> events) implements EventStream<T, Event<T>> {
 
     @Override
     public String getId() {
@@ -12,8 +14,14 @@ public record SampleEventStream(String id, List<Event<Object>> events) implement
     }
 
     @Override
-    public List<Event<Object>> getEvents() {
-        return events;
+    public List<Event<T>> getEvents() {
+        if (events == null || events.isEmpty()){
+            return events;
+        }
+
+        return events.stream()
+                .sorted(comparingLong(Event::getTime))
+                .toList();
     }
 
     @Override

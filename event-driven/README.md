@@ -22,10 +22,10 @@ sequence. Event sourcing mostly is used for audition.
 
 Stream means all events related to a transaction. It includes full history of the changes.
 
+## Event broker
 * Transactional Outbox
 * Database triggers
 * Transaction log tailing
-* Event broker
 * Event portal
 * Topics
 * Event mesh

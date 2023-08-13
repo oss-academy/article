@@ -1,25 +1,23 @@
 package com.tutorial.eventstore.service;
 
 import com.eventstore.dbclient.EventStoreDBClient;
+import com.eventstore.dbclient.ReadAllOptions;
 import com.eventstore.dbclient.ReadStreamOptions;
 import com.eventstore.dbclient.WriteResult;
 import com.tutorial.eventstore.event.Event;
 import com.tutorial.eventstore.stream.EventStream;
 import com.tutorial.eventstore.stream.SampleEventStream;
 import com.tutorial.eventstore.util.EventStoreClientFactory;
+import com.tutorial.eventstore.util.StreamUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
+import java.util.stream.Collectors;
 
 import static com.tutorial.eventstore.util.EventTransformer.toEventDataIterator;
-import static com.tutorial.eventstore.util.JsonUtils.toObjectType;
-import static com.tutorial.eventstore.util.StreamValidator.isValidStream;
-import static com.tutorial.eventstore.util.StringValidator.shouldNotBeNullOrEmpty;
-import static java.util.Optional.ofNullable;
+import static com.tutorial.eventstore.util.validator.StreamValidator.isValidStream;
+import static com.tutorial.eventstore.util.validator.StringValidator.shouldNotBeNullOrEmpty;
 
 public final class SampleStreamService implements StreamService<Object, Event<Object>, EventStream<Object, Event<Object>>> {
 
@@ -43,30 +41,49 @@ public final class SampleStreamService implements StreamService<Object, Event<Ob
         isValidStream(stream);
 
         try {
-            return ofNullable(client.appendToStream(stream.getId(), toEventDataIterator(stream.getEvents())).get())
-                    .map(result -> {
-                        if (logger.isInfoEnabled()) {
-                            logger.info("{} events added to {}", stream.getEvents().size(), stream.getId());
-                        }
-                        return result;
-                    });
+            var result = Optional.ofNullable(
+                    client.appendToStream(stream.getId(), toEventDataIterator(stream.getEvents())).get()
+            );
+
+            if (logger.isInfoEnabled()) {
+                logger.info("{} events added to {}", stream.getEvents().size(), stream.getId());
+            }
+
+            return result;
         } catch (Exception exception) {
             logger.error("appending to the stream {} failed due to: {}", stream.getId(), exception.getMessage());
             return Optional.empty();
         }
-
     }
 
     @Override
     public Optional<EventStream<Object, Event<Object>>> read(final String streamId) {
-        shouldNotBeNullOrEmpty(streamId, "stream Id");
+        shouldNotBeNullOrEmpty(streamId, "stream Id should not be blank");
 
-        return Optional.of(new SampleEventStream(streamId, getEvents(streamId)));
+        return Optional.of(new SampleEventStream<>(streamId, getEvents(streamId)));
+    }
+
+    @Override
+    public Set<String> getAllStreamId() {
+
+        try {
+            return client.readAll(ReadAllOptions.get().fromStart().notResolveLinkTos())
+                    .get()
+                    .getEvents()
+                    .stream()
+                    .map(StreamUtils::extractOriginalEvent)
+                    .filter(Objects::nonNull)
+                    .collect(Collectors.groupingBy(Event::getStreamId))
+                    .keySet();
+        } catch (Exception exception) {
+            logger.error("reading all streams failed due to: {}", exception.getMessage());
+            return new HashSet<>();
+        }
     }
 
     @Override
     public void delete(final String streamId) {
-        shouldNotBeNullOrEmpty(streamId, "stream Id");
+        shouldNotBeNullOrEmpty(streamId, "stream Id should not be blank");
 
         try {
             client.deleteStream(streamId);
@@ -79,20 +96,16 @@ public final class SampleStreamService implements StreamService<Object, Event<Ob
     }
 
     private List<Event<Object>> getEvents(final String streamId) {
-        shouldNotBeNullOrEmpty(streamId, "stream Id");
+        shouldNotBeNullOrEmpty(streamId, "stream Id should not be blank");
 
         try {
             return client.readStream(streamId, ReadStreamOptions.get().fromStart().notResolveLinkTos())
                     .get()
                     .getEvents()
                     .stream()
-                    .map(event -> {
-                        var originalEvent = event.getOriginalEvent();
-                        return (Event<Object>) toObjectType(originalEvent.getEventData(), originalEvent.getEventType());
-                    })
+                    .map(StreamUtils::extractOriginalEvent)
                     .filter(Objects::nonNull)
                     .toList();
-
         } catch (Exception exception) {
             logger.error("reading from the stream {} failed due to: {}", streamId, exception.getMessage());
             return new ArrayList<>();

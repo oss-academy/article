@@ -8,6 +8,8 @@ public interface Event<T> {
 
     String getStreamId();
 
+    Long getTime();
+
     T getData();
 
 }

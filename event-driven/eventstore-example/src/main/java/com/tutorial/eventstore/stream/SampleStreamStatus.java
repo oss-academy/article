@@ -2,7 +2,7 @@ package com.tutorial.eventstore.stream;
 
 public enum SampleStreamStatus {
     CREATED,
-    PROCESSED,
+    ADDED,
+    DELETED,
     CLOSED,
-    REMOVED;
 }

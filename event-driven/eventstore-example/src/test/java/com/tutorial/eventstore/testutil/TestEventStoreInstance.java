@@ -1,7 +1,5 @@
 package com.tutorial.eventstore.testutil;
 
-import com.eventstore.dbclient.EventStoreDBClient;
-import com.tutorial.eventstore.util.EventStoreClientFactory;
 import org.testcontainers.containers.GenericContainer;
 import org.testcontainers.containers.wait.strategy.Wait;
 import org.testcontainers.junit.jupiter.Container;
@@ -9,7 +7,7 @@ import org.testcontainers.utility.DockerImageName;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-public class TestEventStoreHelper {
+public class TestEventStoreInstance {
     @Container
     private final GenericContainer<?> eventStore = new GenericContainer<>(DockerImageName.parse("eventstore/eventstore"))
             .withExposedPorts(2113)
