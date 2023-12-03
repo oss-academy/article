@@ -1,5 +1,8 @@
 package com.tutorial.eventstore.util;
 
+import com.tutorial.eventstore.event.Event;
+
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -34,4 +37,9 @@ public final class CollectionUtils {
                 .map(Object::toString)
                 .collect(Collectors.joining(delimiter));
     }
+
+    public static ArrayList<Event<Object>> createEmptyList() {
+        return new ArrayList<>();
+    }
+
 }

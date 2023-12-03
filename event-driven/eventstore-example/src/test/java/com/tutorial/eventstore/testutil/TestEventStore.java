@@ -7,7 +7,7 @@ import org.testcontainers.utility.DockerImageName;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-public class TestEventStoreInstance {
+public class TestEventStore {
     @Container
     private final GenericContainer<?> eventStore = new GenericContainer<>(DockerImageName.parse("eventstore/eventstore"))
             .withExposedPorts(2113)

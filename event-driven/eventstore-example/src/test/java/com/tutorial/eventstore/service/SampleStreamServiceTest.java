@@ -3,7 +3,7 @@ package com.tutorial.eventstore.service;
 import com.tutorial.eventstore.event.*;
 import com.tutorial.eventstore.stream.EventStream;
 import com.tutorial.eventstore.stream.SampleEventStream;
-import com.tutorial.eventstore.testutil.TestEventStoreInstance;
+import com.tutorial.eventstore.testutil.TestEventStore;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtensionContext;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -23,9 +23,9 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class SampleStreamServiceTest {
 
-    private static final TestEventStoreInstance eventStore = new TestEventStoreInstance();
+    private static final TestEventStore eventStore = new TestEventStore();
 
-    private final SampleStreamService underTest = SampleStreamService.getInstance();
+    private final SampleStreamService systemUnderTest = SampleStreamService.getInstance();
 
     static class EventFactory {
 
@@ -73,7 +73,7 @@ class SampleStreamServiceTest {
             var givenEvents = createFakeSampleEvents(givenStreamId);
             var givenStream = new SampleEventStream(givenStreamId, givenEvents);
 
-            var actual = underTest.append(givenStream);
+            var actual = systemUnderTest.append(givenStream);
 
             assertNotNull(actual);
             assertTrue(actual.isPresent());
@@ -86,7 +86,7 @@ class SampleStreamServiceTest {
                                                       Class<? extends Throwable> expectedException,
                                                       String expectedExceptionMessage) {
 
-            var actual = assertThrows(expectedException, () -> underTest.append(givenEventStream));
+            var actual = assertThrows(expectedException, () -> systemUnderTest.append(givenEventStream));
 
             assertNotNull(actual);
             assertEquals(expectedExceptionMessage, actual.getMessage());
@@ -101,7 +101,7 @@ class SampleStreamServiceTest {
 
         @BeforeEach
         void setup() {
-            var actual = underTest.append(new SampleEventStream(givenStreamId, createFakeSampleEvents(givenStreamId)));
+            var actual = systemUnderTest.append(new SampleEventStream(givenStreamId, createFakeSampleEvents(givenStreamId)));
             assertNotNull(actual);
             assertTrue(actual.isPresent());
         }
@@ -109,7 +109,7 @@ class SampleStreamServiceTest {
         @Test
         @DisplayName("return list of events of a stream")
         void shouldReturnListOfEvents() {
-            var actual = underTest.read(givenStreamId);
+            var actual = systemUnderTest.read(givenStreamId);
 
             assertNotNull(actual);
             assertTrue(actual.isPresent());
@@ -119,7 +119,7 @@ class SampleStreamServiceTest {
         @Test
         @DisplayName("return list of all stream Id")
         void shouldReturnListOfAllStreamId() {
-            var actual = underTest.getAllStreamId();
+            var actual = systemUnderTest.getAllStreamId();
 
             assertNotNull(actual);
             assertFalse(actual.isEmpty());
@@ -128,7 +128,7 @@ class SampleStreamServiceTest {
         @Test
         @DisplayName("should return NullPointerException if stream Id is null")
         void shouldThrowNullPointerException_IfStreamIdIsNull() {
-            var actual = assertThrows(NullPointerException.class, () -> underTest.read(null));
+            var actual = assertThrows(NullPointerException.class, () -> systemUnderTest.read(null));
 
             assertNotNull(actual);
             assertEquals("stream Id should not be blank", actual.getMessage());
@@ -137,7 +137,7 @@ class SampleStreamServiceTest {
         @Test
         @DisplayName("should return IllegalArgumentException if stream Id is null")
         void shouldThrowIllegalArgumentException_IfStreamIdIsEmpty() {
-            var actual = assertThrows(IllegalArgumentException.class, () -> underTest.read(""));
+            var actual = assertThrows(IllegalArgumentException.class, () -> systemUnderTest.read(""));
 
             assertNotNull(actual);
             assertEquals("stream Id should not be blank", actual.getMessage());
@@ -147,13 +147,11 @@ class SampleStreamServiceTest {
     @Nested
     class DeleteTest {
 
-        private final SampleStreamService underTest = SampleStreamService.getInstance();
-
-        private final String givenStreamId = generateId(SampleEventStream.class.getSimpleName());
+        private final String streamId = generateId(SampleEventStream.class.getSimpleName());
 
         @BeforeEach
         void setup() {
-            var actual = underTest.append(new SampleEventStream(givenStreamId, createFakeSampleEvents(givenStreamId)));
+            var actual = systemUnderTest.append(new SampleEventStream(streamId, createFakeSampleEvents(streamId)));
             assertNotNull(actual);
             assertTrue(actual.isPresent());
         }
@@ -161,17 +159,15 @@ class SampleStreamServiceTest {
         @Test
         @DisplayName("should delete a stream by stream Id")
         void ShouldDeleteStreamByStreamId() {
-            try {
-                underTest.delete(givenStreamId);
-            } catch (Exception e) {
-                fail("deleting sample stream failed", e);
-            }
+            final var givenStreamId = streamId;
+
+            assertDoesNotThrow(() -> systemUnderTest.delete(givenStreamId), "deleting sample stream failed");
         }
 
         @Test
         @DisplayName("should return NullPointerException if stream Id is null")
         void shouldThrowNullPointerException_IfStreamIdIsNull() {
-            var actual = assertThrows(NullPointerException.class, () -> underTest.delete(null));
+            var actual = assertThrows(NullPointerException.class, () -> systemUnderTest.delete(null));
 
             assertNotNull(actual);
             assertEquals("stream Id should not be blank", actual.getMessage());
@@ -180,7 +176,7 @@ class SampleStreamServiceTest {
         @Test
         @DisplayName("should return IllegalArgumentException if stream Id is null")
         void shouldThrowIllegalArgumentException_IfStreamIdIsEmpty() {
-            var actual = assertThrows(IllegalArgumentException.class, () -> underTest.delete(""));
+            var actual = assertThrows(IllegalArgumentException.class, () -> systemUnderTest.delete(""));
 
             assertNotNull(actual);
             assertEquals("stream Id should not be blank", actual.getMessage());

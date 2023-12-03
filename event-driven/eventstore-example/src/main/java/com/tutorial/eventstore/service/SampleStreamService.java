@@ -15,9 +15,11 @@ import org.slf4j.LoggerFactory;
 import java.util.*;
 import java.util.stream.Collectors;
 
+import static com.tutorial.eventstore.util.CollectionUtils.createEmptyList;
 import static com.tutorial.eventstore.util.EventTransformer.toEventDataIterator;
 import static com.tutorial.eventstore.util.validator.StreamValidator.isValidStream;
 import static com.tutorial.eventstore.util.validator.StringValidator.shouldNotBeNullOrEmpty;
+import static java.util.Optional.ofNullable;
 
 public final class SampleStreamService implements StreamService<Object, Event<Object>, EventStream<Object, Event<Object>>> {
 
@@ -41,14 +43,8 @@ public final class SampleStreamService implements StreamService<Object, Event<Ob
         isValidStream(stream);
 
         try {
-            var result = Optional.ofNullable(
-                    client.appendToStream(stream.getId(), toEventDataIterator(stream.getEvents())).get()
-            );
-
-            if (logger.isInfoEnabled()) {
-                logger.info("{} events added to {}", stream.getEvents().size(), stream.getId());
-            }
-
+            var result = ofNullable(client.appendToStream(stream.getId(), toEventDataIterator(stream.getEvents())).get());
+            logger.info("{} events added to {}", stream.getEvents().size(), stream.getId());
             return result;
         } catch (Exception exception) {
             logger.error("appending to the stream {} failed due to: {}", stream.getId(), exception.getMessage());
@@ -65,7 +61,6 @@ public final class SampleStreamService implements StreamService<Object, Event<Ob
 
     @Override
     public Set<String> getAllStreamId() {
-
         try {
             return client.readAll(ReadAllOptions.get().fromStart().notResolveLinkTos())
                     .get()
@@ -87,9 +82,7 @@ public final class SampleStreamService implements StreamService<Object, Event<Ob
 
         try {
             client.deleteStream(streamId);
-            if (logger.isInfoEnabled()) {
-                logger.info("{} stream deleted", SampleEventStream.class.getSimpleName());
-            }
+            logger.info("{} stream deleted", SampleEventStream.class.getSimpleName());
         } catch (Exception exception) {
             logger.error("deleting the stream {} failed due to: {}", streamId, exception.getMessage());
         }
@@ -108,7 +101,7 @@ public final class SampleStreamService implements StreamService<Object, Event<Ob
                     .toList();
         } catch (Exception exception) {
             logger.error("reading from the stream {} failed due to: {}", streamId, exception.getMessage());
-            return new ArrayList<>();
+            return createEmptyList();
         }
     }
 

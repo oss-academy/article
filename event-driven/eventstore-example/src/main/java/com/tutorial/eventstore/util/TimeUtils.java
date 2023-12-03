@@ -9,6 +9,7 @@ public final class TimeUtils {
     public static long currentUnixTime() {
         return Instant.now().toEpochMilli() / 1000;
     }
+
     public static long toSecondUnixTime(Instant time) {
         return time.toEpochMilli() / 1000;
     }

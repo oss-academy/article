@@ -2,10 +2,10 @@
 
 ## Prerequisites
 
-* Java 17
-* Maven 3
-* Docker
-* Eventstore Database
+* [Java 17](https://www.oracle.com/de/java/technologies/downloads/)
+* [Maven 3](https://maven.apache.org/)
+* [Docker](https://www.docker.com/)
+* [Eventstore Database](https://www.eventstore.com/)
 
 ## Build
 
@@ -21,7 +21,7 @@ mvn test
 
 ## Dashboard
 
-When the eventstore is running it is possible to access its dashboard by browsing the URL for localhost 
+When the eventstore is running it is possible to access its dashboard by browsing the URL for localhost
 [http://localhost:2113](http://localhost:2113).
 
 **<p align="center"> [Top](#event-driven-example) </p>**

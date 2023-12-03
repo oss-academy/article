@@ -15,7 +15,8 @@ public final class StreamUtils {
     public static String generateId(final String streamName) {
         return String.format("%s_%s", streamName, UUID.randomUUID());
     }
-    public static Event<Object> extractOriginalEvent(ResolvedEvent e) {
+
+    public static Event<Object> extractOriginalEvent(final ResolvedEvent e) {
         return (Event<Object>) toObjectType(e.getOriginalEvent().getEventData(), e.getOriginalEvent().getEventType());
     }
 }

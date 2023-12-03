@@ -21,18 +21,14 @@ public final class EventStoreClientFactory {
 
         var settings = requireNonNull(parseOrThrow(System.getProperty("db.url")), "client setting is null");
 
-        if (LOGGER.isInfoEnabled()) {
-            LOGGER.info("hosts: {}", joinArray(settings.getHosts(), ","));
-            LOGGER.info("credentials: {}", settings.getDefaultCredentials());
-            LOGGER.info("secure connection (TLS): {}", settings.isTls());
-            LOGGER.info("connection was established");
-        }
+        LOGGER.info("hosts: {}", joinArray(settings.getHosts(), ","));
+        LOGGER.info("credentials: {}", settings.getDefaultCredentials());
+        LOGGER.info("secure connection (TLS): {}", settings.isTls());
+        LOGGER.info("connection was established");
 
         var client = requireNonNull(EventStoreDBClient.create(settings), "client is null");
 
-        if (LOGGER.isInfoEnabled()) {
-            LOGGER.info("client is ready");
-        }
+        LOGGER.info("client is ready");
 
         return client;
     }

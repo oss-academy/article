@@ -1,6 +1,6 @@
 package com.tutorial.eventstore.util;
 
-import com.tutorial.eventstore.testutil.TestEventStoreInstance;
+import com.tutorial.eventstore.testutil.TestEventStore;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -9,7 +9,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 class EventStoreClientFactoryTest {
 
-    private static final TestEventStoreInstance eventStore = new TestEventStoreInstance();
+    private static final TestEventStore eventStore = new TestEventStore();
 
     @BeforeAll
     static void setup() {
